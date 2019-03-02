@@ -2,6 +2,8 @@ import React from 'react';
 import { Page } from '../Components';
 import { Link } from "react-router-dom";
 import initLS from 'cloudinary-live-stream'
+//import adapter from 'webrtc-adapter';
+
 
 import {
     Container, Col, Row, Form,
@@ -26,11 +28,13 @@ export default class InvitePage extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            cloudName = CLOUD_NAME,
-            uploadPreset = UPLOAD_PRESET,
+            cloudName: CLOUD_NAME,
+            uploadPreset: UPLOAD_PRESET
         }
         this.liveStream = {};
         this.videoRef = React.createRef();
+        this.startLiveStream = this.startLiveStream.bind(this);
+        this.stop = this.stop.bind(this);
     }
 
     componentWillUnmount() {
@@ -44,6 +48,11 @@ export default class InvitePage extends React.PureComponent {
     startLiveStream(liveStream, publicId, url){
         this.liveStream = liveStream;
         this.liveStream.start(publicId);
+        this.setState(state=>state);
+    }
+
+    stop(){
+        this.liveStream.stop();        
     }
 
     // call initLiveStream with the configuration parameters:
@@ -51,6 +60,7 @@ export default class InvitePage extends React.PureComponent {
         let startLiveStream = this.startLiveStream;
         let liveStream;
         let video = this.videoRef.current;
+        console.log("initlivestream, video ref:",video);
         initLS({
             cloudName: cloudName,
             uploadPreset: uploadPreset,
@@ -60,16 +70,20 @@ export default class InvitePage extends React.PureComponent {
             events: {
                 start: function (args) {
                     // user code
+                    console.log('JANUS START !!! args:',args);
                 },
                 stop: function (args) {
                     // user code
+                    console.log('JANUS STOP !!!');
                 },
                 error: function (error) {
                     // user code
+                    console.log('JANUS ERROR !!!:', error);
                 },
                 local_stream: function (stream) {
                     // user code, typically attaching the stream to a video view:
-                    liveStream.attach(video.get(0), stream);
+                    console.log("JASNUS LOCAL_STREAM !!!, stream:", stream);
+                    liveStream.attach(video, stream);
                 }
             }
         }).then((result) => {
@@ -87,11 +101,17 @@ export default class InvitePage extends React.PureComponent {
     }
 
     render() {
+        const video = this.videoRef;
+        console.log('video ref:',video);
         return (
             <Page>
                 <h1 className="whitecolor">Invite Page</h1>
                 <p>{this.props.values.social}</p>
                 <Link to="/">Home</Link>
+                <div className="video-wrapper">
+                    <video ref={video} className="video" id="video" autoPlay muted="muted" playsInline />
+                </div>
+                <button onClick={() => this.stop()}>stop</button>
             </Page>
         );
     }

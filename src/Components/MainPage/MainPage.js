@@ -8,7 +8,6 @@ import { ReactstrapInput, ReactstrapRadio } from "reactstrap-formik";
 import './MainPage.css'
 
 const ButtonToNavigate = ({ history, values, to, type, children, doBefore }) => {
-    console.log("ButtonToNavigate->doBefore", doBefore);
     return (
     <Button color="primary" className="arrow"
       type={type}
@@ -27,7 +26,6 @@ const ButtonToNavigate = ({ history, values, to, type, children, doBefore }) => 
 export default class MainPage extends React.PureComponent {
     constructor(props) {
         super(props);
-        console.log("MainPage constructor:",this.props.updateInvite);
         this.state = {
             title: 'My live video',
             effects: {
@@ -63,7 +61,7 @@ export default class MainPage extends React.PureComponent {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
+        //console.log(values);
         //Make API calls here
 
         setTimeout(() => {

@@ -13,7 +13,6 @@ class App extends Component {
   }
 
   updateInvite(options){
-    console.log("UPDATEING!!!!!!!!!!!!!!!!!!!!!!!!!!!!:", options);
     this.setState({...options});
   }
 
