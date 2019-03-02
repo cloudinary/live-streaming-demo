@@ -1,0 +1,39 @@
+.header{
+    height:50px;
+    width:100%;
+}
+
+.header-grid{
+    display: grid;
+    grid-template-columns: 40px auto;
+    grid-column-gap: 20px;
+    padding-top:5px;
+}
+
+.header-text-grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 2px;
+}
+
+.header-bg{
+    background-color: rgba(14,47,90,.6);
+}
+
+.header-logo{
+    background: url(../../assets/logo-white.svg) no-repeat 50%;
+    background-size: 100%;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    column-gap: 20px;
+}
+
+.header-text{
+    color: #dee6ed;
+}
+
+.header-sub-title{
+    font-size: 0.7rem;
+    margin-top: 0.2rem;
+}
