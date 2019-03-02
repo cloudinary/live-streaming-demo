@@ -1,0 +1,42 @@
+.bg-opacity{
+    width:100%;
+    height: 100%;
+    background-color: rgba(14,47,90,.48);
+    z-index: 100;
+    position: relative;
+}
+
+.bg-blur{
+  /* Absolutely position it, but stretch it to all four corners, then put it just behind .bg-opacity's z-index */
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 99;
+
+  /* Pull the background 70px higher to the same place as #bg's */
+  background-position: center;
+  -webkit-filter: blur(6px);
+  background: url("../../assets/images/app-background-small.jpg") no-repeat 50% fixed;
+  filter: blur(6px);
+  background-size: cover;
+  margin:6px;
+}
+
+.whitecolor{
+    color: white;
+    z-index: 100;
+}
+
+.full-height{
+    height: 100%;
+}
+
+.page-container{
+    position: relative;
+}
+
+no-padding{
+    padding: 0;
+}
