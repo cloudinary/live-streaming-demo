@@ -6,12 +6,15 @@
     "@emotion/core": "^10.0.7",
     "@emotion/styled": "^10.0.7",
     "bootstrap": "^4.3.1",
+    "cloudinary-live-stream": "^1.0.0-beta.0",
+    "formik": "^1.5.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-pose": "^4.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
-    "reactstrap": "^7.1.0"
+    "reactstrap": "^7.1.0",
+    "reactstrap-formik": "^1.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

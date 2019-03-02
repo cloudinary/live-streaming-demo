@@ -8,6 +8,13 @@ const Footer = () => <div className="footer"></div>;
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
+    this.updateInvite = this.updateInvite.bind(this);
+  }
+
+  updateInvite(options){
+    console.log("UPDATEING!!!!!!!!!!!!!!!!!!!!!!!!!!!!:", options);
+    this.setState({...options});
   }
 
   render() {
@@ -15,7 +22,7 @@ class App extends Component {
     return (
       <div id="app" className="bg app-container">
         <Header />
-        <Router />
+        <Router updateInvite={this.updateInvite} values={this.state}/>
         <Footer />
       </div>
     );

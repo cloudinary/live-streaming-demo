@@ -8,22 +8,22 @@ const RoutesContainer = posed.div({
     exit: { opacity: 0 }
 });
 
-const Routes = ({ location }) => {
+const Routes = ({ location, updateInvite, values }) => {
     return (
         <Switch location={location}>
-            <Route exact path="/" component={MainPage} key="home" />
-            <Route path="/invite" component={InvitePage} key="invite" />
+            <Route exact path="/" render={(props) => <MainPage {...props} updateInvite={updateInvite}/>} key="home"/>
+    <Route path="/invite" render={(props) => <InvitePage values={values}/>} key="invite" />
         </Switch>
     );
 };
 
-export default () => {
+export default (props) => {
     return (
         <BrowserRouter>
             <Route render={({ location }) => (
                 <PoseGroup>
                     <RoutesContainer key={location.pathname + location.key}>
-                        <Routes location={location} />
+                        <Routes location={location} {...props}/>
                     </RoutesContainer>
                 </PoseGroup>
             )} />

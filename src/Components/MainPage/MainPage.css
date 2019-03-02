@@ -1,0 +1,40 @@
+.text-white{
+    color: white;
+}
+
+input[type=text]{
+    color: #fa8a22;
+}
+
+#title{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fa8a22;
+    width:100%;
+}
+
+input[type=text]:focus {
+    color: #fa8a22;
+}
+
+input[type=text]::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fa8a22 !important;
+    opacity: 1; /* Firefox */
+}
+
+
+hr {
+    height: 1px;
+    color: #8c8c8c;
+    background-color: #8c8c8c;
+    border: none;
+}
+
+.arrow{
+    font-size: 1.8rem !important;
+    border-radius: 50% !important;
+    width:65px;
+    height:65px;
+    border-color: white !important;
+    border-width: 5px !important;
+}
