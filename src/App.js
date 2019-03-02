@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import posed, { PoseGroup } from 'react-pose';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styled from '@emotion/styled'
-import { MainPage } from './Components';
+import { MainPage, InvitePage } from './Components';
 import {
   Container, Col, Row, Form,
   FormGroup, Label, Input,
   Button,
 } from 'reactstrap';
 import './App.css';
+import ViedoePlayerPage from './Components/VideoPlayerPage/VideoPlayerPage';
+
+
+const RoutesContainer = posed.div({
+  enter: { opacity: 1, delay: 300 },
+  exit: { opacity: 0 }
+});
+
 
 //background-color: #093068;
 const StyledHeader = styled.div`
@@ -46,11 +57,23 @@ const Header = () => {
 class App extends Component {
   render() {
     return (
-      <div id="app" className="bg app-container">
-        <Header />
-        <MainPage></MainPage>
-        <Footer />
-      </div>
+      <Router>
+        <Route
+    render={({ location }) => (
+        <div id="app" className="bg app-container">
+          <Header />
+          <PoseGroup>
+            <RoutesContainer key={location.key}>
+              <Switch location={location}>
+              <Route exact path="/" component={MainPage} />
+          <Route path="/invite" component={InvitePage} />
+              </Switch>
+            </RoutesContainer>
+          </PoseGroup>
+          <Footer />
+        </div>
+    )}/>
+      </Router >
     );
   }
 }

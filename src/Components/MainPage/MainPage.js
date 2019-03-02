@@ -1,5 +1,6 @@
 import React from 'react';
 import {Page} from '../Components';
+import { Link } from "react-router-dom";
 import {
     Container, Col, Row, Form,
     FormGroup, Label, Input,
@@ -26,8 +27,8 @@ export default class MainPage extends React.PureComponent {
     render() {
         return (
             <Page>
-                <h1 className="whitecolor">TEST</h1>
-                <button>invite page</button>
+                <h1 className="whitecolor">Main Page</h1>
+                <Link to="/invite">Invite</Link>
             </Page>
         );
     }
