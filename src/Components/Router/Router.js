@@ -8,10 +8,10 @@ const RoutesContainer = posed.div({
     exit: { opacity: 0 }
 });
 
-const Routes = ({ location, updateInvite, values }) => {
+const Routes = ({ location, updateStore, values }) => {
     return (
         <Switch location={location}>
-            <Route exact path="/" render={(props) => <MainPage {...props} updateInvite={updateInvite}/>} key="home"/>
+            <Route exact path="/" render={(props) => <MainPage {...props} updateStore={updateStore}/>} key="home"/>
     <Route path="/invite" render={(props) => <InvitePage values={values}/>} key="invite" />
         </Switch>
     );

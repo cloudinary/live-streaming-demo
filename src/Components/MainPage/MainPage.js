@@ -71,11 +71,11 @@ export default class MainPage extends React.PureComponent {
   }
 
   onNext() {
-    this.props.updateInvite(this.state);
+    this.props.updateStore(this.state);
   }
 
   render() {
-    const doBefore = this.props.updateInvite;
+    const doBefore = this.props.updateStore;
     return (
       <Page>
         <Formik

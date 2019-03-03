@@ -9,10 +9,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.updateInvite = this.updateInvite.bind(this);
+    this.updateStore = this.updateStore.bind(this);
   }
 
-  updateInvite(options){
+  updateStore(options){
     this.setState({...options});
   }
 
@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <div id="app" className="bg app-container">
         <Header />
-        <Router updateInvite={this.updateInvite} values={this.state}/>
+        <Router updateStore={this.updateStore} values={this.state}/>
         <Footer />
       </div>
     );

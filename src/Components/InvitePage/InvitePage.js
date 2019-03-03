@@ -36,8 +36,7 @@ export default class InvitePage extends React.PureComponent {
     };
     this.liveStream = {};
     this.videoRef = React.createRef();
-    this.startLiveStream = this.startLiveStream.bind(this);
-    this.stop = this.stop.bind(this);
+    this.updateLiveStream = this.updateLiveStream.bind(this);
   }
 
   componentWillUnmount() {
@@ -48,19 +47,13 @@ export default class InvitePage extends React.PureComponent {
     this.initLiveStream({ ...this.state });
   }
 
-  startLiveStream(liveStream, publicId, url) {
-    this.liveStream = liveStream;
-    this.liveStream.start(publicId);
-    this.setState(state => state);
-  }
-
-  stop() {
-    this.liveStream.stop();
+  updateLiveStream(liveStream, publicId, url) {
+    this.props.updateLiveStream({liveStream, publicId, url});
   }
 
   // call initLiveStream with the configuration parameters:
   initLiveStream({ cloudName, uploadPreset }) {
-    let startLiveStream = this.startLiveStream;
+    let updateLiveStream = this.updateLiveStream;
     let liveStream;
     let video = this.videoRef.current;
     console.log('initlivestream, video ref:', video);
@@ -98,7 +91,7 @@ export default class InvitePage extends React.PureComponent {
       let url = result.response.secure_url;
 
       // start the streaming:
-      startLiveStream(liveStream, publicId, url);
+      this.updateLiveStream(liveStream, publicId, url);
     });
   }
 
