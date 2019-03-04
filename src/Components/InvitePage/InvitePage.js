@@ -35,7 +35,6 @@ export default class InvitePage extends React.PureComponent {
       uploadPreset: UPLOAD_PRESET
     };
     this.liveStream = {};
-    this.videoRef = React.createRef();
     this.updateLiveStream = this.updateLiveStream.bind(this);
   }
 
@@ -48,7 +47,7 @@ export default class InvitePage extends React.PureComponent {
   }
 
   updateLiveStream(liveStream, publicId, url) {
-    this.props.updateLiveStream({liveStream, publicId, url});
+    this.props.updateStore({liveStream, publicId, url});
   }
 
   // call initLiveStream with the configuration parameters:
@@ -102,17 +101,7 @@ export default class InvitePage extends React.PureComponent {
       <Page>
         <h1 className="whitecolor">Invite Page</h1>
         <Link to="/">Home</Link>
-        <div className="video-wrapper">
-          <video
-            ref={video}
-            className="video"
-            id="video"
-            autoPlay
-            muted="muted"
-            playsInline
-          />
-        </div>
-        <button onClick={() => this.stop()}>stop</button>
+        <Link to="/videoplayer">Stream</Link>
       </Page>
     );
   }
