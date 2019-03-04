@@ -75,7 +75,7 @@ export default class MainPage extends React.PureComponent {
   }
 
   render() {
-    const doBefore = this.props.updateStore;
+    const updateStore = this.props.updateStore;
     return (
       <Page>
         <Formik
@@ -179,7 +179,7 @@ export default class MainPage extends React.PureComponent {
                   <Col xs="12" >
                   <Row className="justify-content-center align-items-center">
                     <ButtonToNavigate
-                      doBefore={doBefore}
+                      doBefore={updateStore}
                       values={values}
                       to="/invite"
                       type="submit"

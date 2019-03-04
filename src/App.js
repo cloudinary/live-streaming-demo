@@ -8,7 +8,12 @@ const Footer = () => <div className="footer"></div>;
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      liveStream: null,
+      publicId: null,
+      url: null,
+      
+    };
     this.updateStore = this.updateStore.bind(this);
   }
 
