@@ -24,3 +24,63 @@ html, body, #root, #app{
 .text-light {
     color: #dee6ed;
 }
+
+.text-white{
+  color:white;
+}
+
+.text-orange{
+  color: #fa8a22;
+}
+
+input[type='text'] {
+  color: #fa8a22;
+}
+
+input.input-orange {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #fa8a22;
+  width: 100%;
+}
+
+input[type='text']:focus {
+  color: #fa8a22 !important;
+}
+
+input.input-orange::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fa8a22;
+  opacity: 1; /* Firefox */
+}
+
+hr {
+  height: 1px;
+  color: #8c8c8c;
+  background-color: #8c8c8c;
+  border: none;
+}
+
+.border-bottom-orange{
+  border-bottom: 1px solid #fa8a22;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top:-10px;
+}
+
+.title-top{
+  padding-top:100px;
+  padding-bottom: 10px;
+}
+
+.push-down{
+  margin-bottom:3px;
+}
+
+.space-above{
+  padding-top:100px;
+}
+
+.text-small{
+  font-size: 0.7rem;
+}

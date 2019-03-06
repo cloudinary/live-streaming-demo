@@ -1,7 +1,8 @@
 import React from 'react';
-import { Page } from '../Components';
+import { Page, NavButton } from '../Components';
 import { Link } from 'react-router-dom';
-import initLS from 'cloudinary-live-stream';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { inject, observer } from 'mobx-react';
 
 import {
   Container,
@@ -16,93 +17,61 @@ import {
 
 import './InvitePage.css';
 
-const CLD_API_HOST = 'api.cloudinary.com';
-const CLD_RES_HOST = 'res.cloudinary.com';
-const CLD_WEB_RTC_HOST = 'webrtc-api.cloudinary.com';
-const CLOUD_NAME = 'demo-live';
-const UPLOAD_PRESET = 'live-stream';
-const UPLOAD_PRESET_OPENER = 'live-opener';
-const CLOUD_NAME_IMAGES = CLOUD_NAME;
-const UPLOAD_PRESET_IMAGES = 'images';
-const UPLOAD_WIDGET_PREFIX = 'https://widget.cloudinary.com';
-const UPLOAD_TYPE = 'upload';
-
-export default class InvitePage extends React.PureComponent {
+const InvitePage = class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cloudName: CLOUD_NAME,
-      uploadPreset: UPLOAD_PRESET
-    };
-    this.liveStream = {};
-    this.updateLiveStream = this.updateLiveStream.bind(this);
+    if (!props.store.url) {
+      props.history.push('/');
+    }
+
+    this.getPath = this.getPath.bind(this);
   }
 
-  componentWillUnmount() {
-    //destroy livestream
-  }
-
-  componentDidMount() {
-    this.initLiveStream({ ...this.state });
-  }
-
-  updateLiveStream(liveStream, publicId, url) {
-    this.props.updateStore({liveStream, publicId, url});
-  }
-
-  // call initLiveStream with the configuration parameters:
-  initLiveStream({ cloudName, uploadPreset }) {
-    let updateLiveStream = this.updateLiveStream;
-    let liveStream;
-    let video = this.videoRef.current;
-    console.log('initlivestream, video ref:', video);
-    initLS({
-      cloudName: cloudName,
-      uploadPreset: uploadPreset,
-      debug: 'all',
-      hlsTarget: true,
-      fileTarget: true,
-      events: {
-        start: function(args) {
-          // user code
-          console.log('JANUS START !!! args:', args);
-        },
-        stop: function(args) {
-          // user code
-          console.log('JANUS STOP !!!');
-        },
-        error: function(error) {
-          // user code
-          console.log('JANUS ERROR !!!:', error);
-        },
-        local_stream: function(stream) {
-          // user code, typically attaching the stream to a video view:
-          console.log('JASNUS LOCAL_STREAM !!!, stream:', stream);
-          liveStream.attach(video, stream);
-        }
-      }
-    }).then(result => {
-      // keep handle to instance to start/stop streaming
-      liveStream = result;
-
-      // Extract public id and url from result (publish the url for people to watch the stream):
-      let publicId = result.response.public_id;
-      let url = result.response.secure_url;
-
-      // start the streaming:
-      this.updateLiveStream(liveStream, publicId, url);
-    });
+  getPath() {
+    const { publicId } = this.props.store;
+    let path = window.location.href.replace(this.props.location.pathname, '');
+    path += `/videoplayer/${publicId}`;
+    return path;
   }
 
   render() {
-    const video = this.videoRef;
-    console.log('video ref:', video);
+    const { publicId, url } = this.props.store;
+    const { history } = this.props;
     return (
-      <Page>
-        <h1 className="whitecolor">Invite Page</h1>
-        <Link to="/">Home</Link>
-        <Link to="/videoplayer">Stream</Link>
+      <Page className="text-white">
+        <Col xs={12} className="center title-top">
+          <h4>Invite people to watch your live stream</h4>
+        </Col>
+        <Col xs={12} className="center">
+        <hr />
+        </Col>
+        <Col xs={12}>
+          <p>URL</p>
+          <div className="border-bottom-orange">
+            <p className="text-orange push-down">{this.getPath()}</p>
+          </div>
+        </Col>
+          <Col xs={12} className="center">
+            <CopyToClipboard text={this.getPath()}>
+              <Button>Copy link to clipboard</Button>
+            </CopyToClipboard>
+          </Col>
+
+          <Col xs={12} className="center">
+          <div className="space-above">
+            <hr />
+            <p className="text-small">
+              Clicking the button below will start your streaming session. Are
+              you ready to go live?
+            </p>
+            <NavButton to="/videorecorder" history={history}>
+              Start Streaming
+            </NavButton>
+          </div>
+          </Col>
       </Page>
     );
   }
-}
+};
+
+export default inject('store')(observer(InvitePage));

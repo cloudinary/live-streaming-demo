@@ -1,85 +1,110 @@
 import React from 'react';
-import { Page } from '../Components';
-import { Link } from 'react-router-dom';
+import { Page, NavButton } from '../Components';
 import { Field, Form, Formik } from 'formik';
-import { Col, Container, Row, Button } from 'reactstrap';
+import { Col, Container, Row } from 'reactstrap';
 import { ReactstrapInput, ReactstrapRadio } from 'reactstrap-formik';
 import CloudUpload from '@material-ui/icons/CloudUpload';
 import Slideshow from '@material-ui/icons/Slideshow';
 import Vignette from '@material-ui/icons/Vignette';
 import BlurOn from '@material-ui/icons/BlurOn';
-
+import { inject, observer } from 'mobx-react';
+import Loader from 'react-loader-spinner';
 
 import './MainPage.css';
 
-const facebookLabel = () =>{
+const facebookLabel = () => {
   return (
     <label htmlFor="facebook">
-    <div className="icon facebook-icon"></div>
-    <span>Facebook</span>
+      <div className="icon facebook-icon" />
+      <span>Facebook</span>
     </label>
-  );
-}
-
-const youtubeLabel = () =>{
-  return (
-    <label htmlFor="youtube">
-    <div className="icon youtube-icon"></div>
-    <span>Youtube</span>
-    </label>
-  );
-}
-
-const ButtonToNavigate = ({
-  history,
-  values,
-  to,
-  type,
-  children,
-  doBefore
-}) => {
-  return (
-    <Button
-      color="primary"
-      className="arrow"
-      type={type}
-      onClick={() => {
-        if (doBefore) {
-          doBefore(values);
-        }
-        history.push(to);
-      }}
-    >
-      {children}
-    </Button>
   );
 };
 
-export default class MainPage extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'My live video',
-      effects: {
-        logo: null,
-        intro: null,
-        border: null,
-        blur: null
-      },
-      social: false
-    };
+const youtubeLabel = () => {
+  return (
+    <label htmlFor="youtube">
+      <div className="icon youtube-icon" />
+      <span>Youtube</span>
+    </label>
+  );
+};
+
+const MainPage = class extends React.Component {
+  componentDidMount() {
+    //this.props.store.setURL(null);
+    this.props.store.initLiveStream();
   }
 
-  onNext() {
-    this.props.updateStore(this.state);
+  renderNavButton(values) {
+    const { store, history } = this.props;
+    if (store.error) {
+      return null;
+    }
+    return (
+      <NavButton
+        cls="arrow"
+        doBefore={store.updateStore}
+        values={values}
+        to="/invite"
+        type="submit"
+        history={history}
+      >
+        →
+      </NavButton>
+    );
+  }
+
+  renderLoading() {
+    return (
+      <Page>
+        <Container className="h-100 text-white">
+        <Row style={{height:"100px  "}}></Row>
+          <Row className="justify-content-center align-items-center">
+            <Col mx={12} className="text-center">
+              <Loader type="TailSpin" color="white" />
+            </Col>
+          </Row>
+          <Row className="justify-content-center align-items-center">
+            <Col mx={12} className="text-center">
+              <h6>Initializing the live streaming session...</h6>
+            </Col>
+          </Row>
+        </Container>
+      </Page>
+    );
+  }
+
+  renderError(error) {
+    return (
+      <Page>
+        <Container className="h-100 text-white">
+        <Row style={{height:"100px  "}}></Row>
+          <Row className="justify-content-center align-items-center">
+            <Col mx={12} className="text-center">
+              <h6>Error: {error}</h6>
+            </Col>
+          </Row>
+        </Container>
+      </Page>
+    );
   }
 
   render() {
-    const updateStore = this.props.updateStore;
+    const { store } = this.props;
+    if (store.loading) {
+      return this.renderLoading();
+    }
+
+    if (store.error){
+      return this.renderError(store.error)
+    }
+
+    
     return (
       <Page>
         <Formik
-          initialValues={{ title: 'My live video', social: 'none' }}
+          initialValues={{ title: store.title, social: 'none' }}
           validate={values => {
             const errors = {};
             if (!values.title) {
@@ -108,8 +133,9 @@ export default class MainPage extends React.PureComponent {
                 <Row>
                   <Col xs="12">
                     <Field
+                      className="input-orange"
                       label="Live streaming title"
-                      placeholder="My live video"
+                      placeholder={store.title}
                       name="title"
                       id="title"
                       component={ReactstrapInput}
@@ -119,28 +145,32 @@ export default class MainPage extends React.PureComponent {
                     <h4>Effects</h4>
                   </Col>
                   <Col xs="12">
-                    <input type="checkbox" name="logo" value="logo"/>
-                    <span style={{ marginLeft: '5px' }}><CloudUpload className="svg-icons"/>Add your logo</span>
+                    <input type="checkbox" name="logo" value="logo" />
+                    <span style={{ marginLeft: '5px' }}>
+                      <CloudUpload className="svg-icons" />
+                      Add your logo
+                    </span>
                   </Col>
                   <Col xs="12">
                     <input type="checkbox" name="intro" value="intro" />
                     <span style={{ marginLeft: '5px' }}>
-                    <Slideshow className="svg-icons"/>
+                      <Slideshow className="svg-icons" />
                       Add intro animation
                     </span>
                   </Col>
                   <Col xs="12">
                     <input type="checkbox" name="border" value="border" />
                     <span style={{ marginLeft: '5px' }}>
-                    <Vignette className="svg-icons"/>
+                      <Vignette className="svg-icons" />
                       Apply vignette border
                     </span>
                   </Col>
                   <Col xs="12">
                     <input type="checkbox" name="blur" value="blur" />
                     <span style={{ marginLeft: '5px' }}>
-                    <BlurOn className="svg-icons"/>
-                    Blur your video</span>
+                      <BlurOn className="svg-icons" />
+                      Blur your video
+                    </span>
                     <hr />
                   </Col>
                   <Col xs="12">
@@ -164,7 +194,9 @@ export default class MainPage extends React.PureComponent {
                       value="facebook"
                       type="radio"
                       label={facebookLabel()}
-                    >aaa</Field>
+                    >
+                      aaa
+                    </Field>
                   </Col>
                   <Col xs="12">
                     <Field
@@ -176,17 +208,12 @@ export default class MainPage extends React.PureComponent {
                     />
                     <hr />
                   </Col>
-                  <Col xs="12" >
-                  <Row className="justify-content-center align-items-center">
-                    <ButtonToNavigate
-                      doBefore={updateStore}
-                      values={values}
-                      to="/invite"
-                      type="submit"
-                      history={this.props.history}
-                    >
-                      →
-                    </ButtonToNavigate>
+                  <Col xs="12">
+                    <Row className="justify-content-center align-items-center">
+                      <p>{store.error}</p>
+                    </Row>
+                    <Row className="justify-content-center align-items-center">
+                      {this.renderNavButton(values)}
                     </Row>
                   </Col>
                 </Row>
@@ -197,4 +224,6 @@ export default class MainPage extends React.PureComponent {
       </Page>
     );
   }
-}
+};
+
+export default inject('store')(observer(MainPage));

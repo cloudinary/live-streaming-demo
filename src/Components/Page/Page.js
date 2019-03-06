@@ -8,7 +8,7 @@ import './Page.css'
 
 export default (props) => {
     return (
-        <Row noGutters className="height-full">
+        <Row noGutters className={"height-full "+(props.className || "")}>
             <Col md={10} lg={8} xl={6} className="offset-md-1 offset-lg-2 offset-xl-3 no-gutters">
                 <div className="bg-blur"></div>
                 <div className="bg-opacity">
