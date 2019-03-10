@@ -11,6 +11,7 @@ import { inject, observer } from 'mobx-react';
 import Loader from 'react-loader-spinner';
 
 import './MainPage.css';
+import { Button } from '@material-ui/core';
 
 const facebookLabel = () => {
   return (
@@ -31,9 +32,42 @@ const youtubeLabel = () => {
 };
 
 const MainPage = class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showUploadLogoButton: false,
+      logoUrl: null
+    };
+
+    this.renderUploadButton = this.renderUploadButton.bind(this);
+    this.uploadToggle = this.uploadToggle.bind(this);
+  }
+
   componentDidMount() {
     //this.props.store.setURL(null);
     this.props.store.initLiveStream();
+  }
+
+  uploadToggle() {
+    this.setState(state => {
+      return { showUploadLogoButton: !state.showUploadLogoButton };
+    });
+  }
+
+  uploadLogoClick() {
+    //cloudinary react upload widget
+  }
+
+  renderUploadButton() {
+    if (!this.state.showUploadLogoButton) {
+      return null;
+    }
+
+    return (
+      <span>
+        <Button className="bg-light">Upload</Button>
+      </span>
+    );
   }
 
   renderNavButton(values) {
@@ -59,7 +93,7 @@ const MainPage = class extends React.Component {
     return (
       <Page>
         <Container className="h-100 text-white">
-        <Row style={{height:"100px  "}}></Row>
+          <Row style={{ height: '100px  ' }} />
           <Row className="justify-content-center align-items-center">
             <Col mx={12} className="text-center">
               <Loader type="TailSpin" color="white" />
@@ -79,7 +113,7 @@ const MainPage = class extends React.Component {
     return (
       <Page>
         <Container className="h-100 text-white">
-        <Row style={{height:"100px  "}}></Row>
+          <Row style={{ height: '100px  ' }} />
           <Row className="justify-content-center align-items-center">
             <Col mx={12} className="text-center">
               <h6>Error: {error}</h6>
@@ -96,15 +130,15 @@ const MainPage = class extends React.Component {
       return this.renderLoading();
     }
 
-    if (store.error){
-      return this.renderError(store.error)
+    if (store.error) {
+      return this.renderError(store.error);
     }
 
-    
     return (
       <Page>
         <Formik
           initialValues={{ title: store.title, social: 'none' }}
+          /*
           validate={values => {
             const errors = {};
             if (!values.title) {
@@ -116,10 +150,8 @@ const MainPage = class extends React.Component {
             }
             return errors;
           }}
+          
           onSubmit={(values, { setSubmitting }) => {
-            //console.log(values);
-            //Make API calls here
-
             setTimeout(() => {
               setSubmitting(false);
               alert(
@@ -127,6 +159,7 @@ const MainPage = class extends React.Component {
               );
             }, 2000);
           }}
+          */
           render={({ submitForm, isSubmitting, values }) => (
             <Form>
               <Container style={{ paddingTop: '5px' }} className="text-white">
@@ -145,11 +178,21 @@ const MainPage = class extends React.Component {
                     <h4>Effects</h4>
                   </Col>
                   <Col xs="12">
-                    <input type="checkbox" name="logo" value="logo" />
-                    <span style={{ marginLeft: '5px' }}>
-                      <CloudUpload className="svg-icons" />
-                      Add your logo
-                    </span>
+                  <Row>
+                    <Col xs={6}>
+                    <input
+                      type="checkbox"
+                      name="logo"
+                      value="logo"
+                      onChange={this.uploadToggle}
+                    />
+                        <span style={{ marginLeft: '5px' }}>
+                          <CloudUpload className="svg-icons" />
+                          Add your logo
+                        </span>
+                      </Col>
+                      <Col xs={6}>{this.renderUploadButton()}</Col>
+                      </Row>
                   </Col>
                   <Col xs="12">
                     <input type="checkbox" name="intro" value="intro" />
@@ -194,9 +237,7 @@ const MainPage = class extends React.Component {
                       value="facebook"
                       type="radio"
                       label={facebookLabel()}
-                    >
-                      aaa
-                    </Field>
+                    />
                   </Col>
                   <Col xs="12">
                     <Field

@@ -1,19 +1,7 @@
 import React from 'react';
-import { Page, NavButton } from '../Components';
-import { Link } from 'react-router-dom';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { inject, observer } from 'mobx-react';
-
-import {
-  Container,
-  Col,
-  Row,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Button
-} from 'reactstrap';
+import { Page } from '../../Components';
+import { Title, Url, Share, Stream } from './Partials';
 
 import './InvitePage.css';
 
@@ -35,16 +23,33 @@ const InvitePage = class extends React.Component {
   }
 
   render() {
-    const { publicId, url } = this.props.store;
-    const { history } = this.props;
     return (
       <Page className="text-white">
+      <Title/>
+      <Url url={this.getPath()}/>
+      <Share url={this.getPath()}/>
+      <Stream {...this.props}/>
+      </Page>
+    );
+  }
+};
+
+export default inject('store')(observer(InvitePage));
+
+/*
+      <Url url={this.getPath()}/>
+      <Share url={this.getPath()}/>
+      <Stream {...this.props}/>
+
+
         <Col xs={12} className="center title-top">
           <h4>Invite people to watch your live stream</h4>
         </Col>
         <Col xs={12} className="center">
         <hr />
         </Col>
+
+        
         <Col xs={12}>
           <p>URL</p>
           <div className="border-bottom-orange">
@@ -70,8 +75,5 @@ const InvitePage = class extends React.Component {
           </div>
           </Col>
       </Page>
-    );
-  }
-};
 
-export default inject('store')(observer(InvitePage));
+*/

@@ -1,21 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter} from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import posed, { PoseGroup } from 'react-pose';
-import {
-  MainPage,
-  InvitePage,
-  VideoPlayerPage,
-  VideoRecorderPage,
-  DonePage
-} from '../../Pages';
+import { MainPage, InvitePage, VideoPlayerPage, VideoRecorderPage, DonePage } from '../../Pages';
 
 const RoutesContainer = posed.div({
   enter: { opacity: 1, delay: 300 },
   exit: { opacity: 0 }
 });
 
-const Routes = routerProps => {
+const Routes = withRouter(routerProps => {
+  const {pathname} = routerProps.location;
+  const {url} = routerProps.store;
+
+  if (!url && pathname !== '/' ) {
+    routerProps.history.push('/');
+    return null;
+  }
   return (
     <Switch location={routerProps.location}>
       <Route
@@ -51,33 +52,19 @@ const Routes = routerProps => {
       />
     </Switch>
   );
-};
+});
 
 const Router = props => {
-  const { url } = props.store;
-  const {history} = props;
   return (
-    <BrowserRouter history={history}>
+    <BrowserRouter history={props.history}>
       <Route
-        render={({ location, history }) => {
-          const { pathname } = location;
-
-          if (!url && pathname !== '/' && !pathname.includes('/videoplayer/')) {
-            history.push('/');
-            return null;
-          }
-
-          return (
-            <PoseGroup>
-              <RoutesContainer key={location.pathname + location.key}>
-                <Routes
-                  {...props}
-                  location={location}
-                />
-              </RoutesContainer>
-            </PoseGroup>
-          );
-        }}
+        render={({ location }) => (
+          <PoseGroup>
+            <RoutesContainer key={location.pathname + location.key}>
+              <Routes location={location} {...props} history={props.history} />
+            </RoutesContainer>
+          </PoseGroup>
+        )}
       />
     </BrowserRouter>
   );

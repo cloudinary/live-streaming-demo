@@ -1,23 +1,33 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 
-export default ({ color, bgColor, cls, history, values, to, type="button", children, doBefore }) => {
-  const style = {}
-  if (color){
+export default ({
+  color,
+  bgColor,
+  cls,
+  history,
+  to,
+  type = 'button',
+  children,
+  doBefore
+}) => {
+  const style = {};
+  if (color) {
     style.color = color;
   }
 
-  if (bgColor){
+  if (bgColor) {
     style.backgroundColor = bgColor;
   }
   return (
-    <Button style={style}
-      color={color || "primary"} 
+    <Button
+      style={style}
+      color={color || 'primary'}
       className={cls}
       type={type}
       onClick={() => {
         if (doBefore) {
-          doBefore(values);
+          doBefore();
         }
         history.push(to);
       }}

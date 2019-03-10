@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import { Page, NavButton, LiveIndicator} from '../Components';
+import { Page, NavButton, LiveIndicator} from '../../Components';
 import { inject, observer } from 'mobx-react';
 
 

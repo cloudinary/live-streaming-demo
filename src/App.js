@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <div id="app" className="bg app-container">
         <Header />
-        <Router updateStore={this.updateStore} values={this.state}/>
+        <Router />
         <Footer />
       </div>
     );

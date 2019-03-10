@@ -25,6 +25,10 @@ html, body, #root, #app{
     color: #dee6ed;
 }
 
+.text-black{
+  color: black;
+}
+
 .text-white{
   color:white;
 }
@@ -83,4 +87,78 @@ hr {
 
 .text-small{
   font-size: 0.7rem;
+}
+
+.svg-icons {
+  transform: scale(0.7);
+  /*margin: 8px 6px 8px 6px;*/
+}
+
+.radio-label{
+  margin-left: 10px;
+}
+
+.mb-20{
+  margin-bottom: 20px;
+}
+
+.mt-20{
+  margin-top:20px;
+}
+
+.SocialMediaShareButton{
+  margin:5px;
+  outline: none;
+}
+
+/*
+input[type='checkbox'] {
+  width: 14px !important;
+  height: 14px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border: 2px solid white;
+  border-radius: 20%;
+  box-shadow: none;
+  font-size: 2em;
+  vertical-align: middle;
+  outline: transparent;
+}
+
+input[type='checkbox']:checked {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+  -o-appearance: checkbox;
+}
+
+input[type='radio'] {
+  width: 15px !important;
+  height: 15px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: none;
+  font-size: 2em;
+  vertical-align: middle;
+  outline: transparent;
+}
+
+input[type='radio']:checked {
+  -webkit-appearance: radio;
+  -moz-appearance: radio;
+  -o-appearance: radio;
+}
+*/
+
+.pretty .state label:after, .pretty .state label:before{
+  top: 0 !important;
+}
+
+.mdi{
+  margin-top:8px;
 }

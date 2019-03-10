@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, NavButton } from '../Components';
+import { Page, NavButton } from '../../Components';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { inject, observer } from 'mobx-react';

@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree';
 import initLS from 'cloudinary-live-stream';
+import { Checkbox } from '@material-ui/core';
 
 const CLD_API_HOST = 'api.cloudinary.com';
 const CLD_RES_HOST = 'res.cloudinary.com';
@@ -12,9 +13,44 @@ const UPLOAD_PRESET_IMAGES = 'images';
 const UPLOAD_WIDGET_PREFIX = 'https://widget.cloudinary.com';
 const UPLOAD_TYPE = 'upload';
 
+const Input = types.model({
+  value: types.optional(types.string, ''),
+  placeholder: types.optional(types.string, '')
+});
+
+const Option = types
+  .model({
+    name: types.optional(types.string, ''),
+    value: types.maybe(types.frozen({})),
+    enabled: types.optional(types.boolean, false),
+    label:types.optional(types.string, ''),
+    logo:types.optional(types.string, '')
+  })
+  .actions(self => ({
+    toggle() {
+      self.enabled = !self.enabled;
+    },
+    setValue(v){
+      self.value = v;
+    },
+    setEnabled(v){
+      self.enabled = v;
+    }
+  }))
+  .views(self =>({
+    get checkbox(){
+      return Object.assign({}, {...self, checked: self.enabled, action:"toggleEffect"})
+    },
+    get radio(){
+      return Object.assign({}, {...self, checked: self.enabled, action:"toggleSocial"})
+    }
+  }));
+
 const MainStore = types
   .model('MainStore', {
-    title: types.maybe(types.string),
+    title: types.maybe(Input),
+    effects: types.array(Option),
+    socials: types.array(Option),
     videoRef: types.maybe(types.frozen({})),
     url: types.maybe(types.string),
     publicId: types.maybe(types.string),
@@ -23,6 +59,38 @@ const MainStore = types
   })
   .actions(self => {
     let liveStream = null;
+
+    function setInputValue(inputName, value) {
+      self[inputName].value = value;
+    }
+
+    function toggleEffect(name) {
+      self.effects.find(e=>e.name==name).toggle();
+      console.log("toggled", self.effects.find(e=>e.name==name).enabled);
+    }
+
+    function setEffectValue(name, value) {
+      self.effects.find(e=>e.name==name).setValue(value);
+    }
+
+    function setUploadedImage(image){
+      self.effects.find(e=>e.name=="logo").setValue(image);
+    }
+
+    function delUploadedImage(){
+      setUploadedImage({});
+    }
+
+    function toggleSocial(name) {
+      self.socials.forEach(e=>{
+        if (e.name==name){
+          e.setEnabled(true);
+        }
+        else{
+          e.setEnabled(false);
+        }
+      });
+    }
 
     function setLoading(loading) {
       self.loading = loading;
@@ -99,8 +167,8 @@ const MainStore = types
 
     function startLiveStream(videoRef) {
       if (liveStream) {
-      self.setVideoRef(videoRef);
-      liveStream.start(self.publicId);
+        self.setVideoRef(videoRef);
+        liveStream.start(self.publicId);
       }
     }
 
@@ -119,20 +187,123 @@ const MainStore = types
       setPublicId,
       setURL,
       setError,
-      setLoading
+      setLoading,
+      setInputValue,
+      toggleEffect,
+      setEffectValue,
+      toggleSocial,
+      setUploadedImage,
+      delUploadedImage
     };
-  });
-/*
+  })
   .views(self => ({
-    get publicId() {
-      return self.liveStream.response.public_id;
-    },
-    get url() {
-      return (self.liveStream && self.liveStream.response) ? self.liveStream.response.secure_url : "";
+    get uploadedImage() {
+      return self.effects.find(e=>e.name=="logo").value;
+    }
+  }))
+  .views(self => ({
+    //return an array of needed transformations and effects
+    get transformations() {
+      let effects = self.effects.filter(e=>(e.enabled));
+      let socials = self.socials.filter(e=>(e.enabled));
+      return effects.concat(socials);
     }
   }));
-  */
+export default MainStore.create({
+  title: { placeholder: 'My live video', value: 'My live video' },
+  effects: [
+    {
+      name:"logo",
+      value:{},
+      label:"Add your logo",
+      logo:"CloudUpload",
+      enabled: false
+    },
+    {
+      name:"intro",
+      value:{},
+      label:"Add intro animation",
+      logo:"Slideshow",
+      enabled: false
+    },
+    {
+      name:"vignette",
+      value:{},
+      label:"Apply vignette border",
+      logo:"Vignette",
+      enabled: false
+    },
+    {
+      name:"blur",
+      value:{},
+      label:"Blur your video",
+      logo:"BlurOn",
+      enabled: false
+    }
+  ],
+  socials: [
+    {
+      name:"none",
+      value:{},
+      label:"None",
+      logo:"",
+      enabled: true
+    },
+    {
+      name:"facebook",
+      value:{},
+      label:"Facebook",
+      logo:"facebook",
+      enabled: false
+    },
+    {
+      name:"youtube",
+      value:{},
+      label:"Youtube",
+      logo:"youtube",
+      enabled: false
+    }
+  ]
 
-// call initLiveStream with the configuration parameters:
 
-export default MainStore.create({ title: 'My live video' });
+      /*
+            />
+          </Col>
+          <Col xs={6}>
+          { store.effects.logo && store.effects.logo.enabled ?
+          <Button className="bg-light text-black">Upload</Button> : null}
+          </Col>
+        </Row>
+      </Col>
+      <Col xs={12}>
+        <CheckBox
+          name="intro"
+          label="Add intro animation"
+          Logo={() => <Slideshow className="svg-icons" />}
+          checked={isEnabled(store, 'intro')}
+          action="toggleEffect"
+        />
+      </Col>
+      <Col xs="12">
+        <CheckBox
+          name="vignette"
+          label="Apply vignette border"
+          Logo={() => <Vignette className="svg-icons" />}
+          checked={isEnabled(store, 'vignette')}
+          action="toggleEffect"
+        />
+      </Col>
+      <Col xs="12">
+        <CheckBox
+          name="blur"
+          label="Blur your video"
+          Logo={() => <BlurOn className="svg-icons" />}
+          checked={isEnabled(store, 'blur')}
+          action="toggleEffect"
+        />
+      </Col>
+
+
+*/
+
+});
