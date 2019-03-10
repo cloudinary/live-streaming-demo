@@ -1,17 +1,13 @@
 import React from 'react';
-import { Page, NavButton, Spinner } from '../../Components';
+import { Page, NavButton, Loader } from '../../Components';
 import { Col, Row } from 'reactstrap';
 import { inject, observer } from 'mobx-react';
 import { Title, Effects, Social} from './Partials/Partials';
 import './MainPage.css';
 
 const ButtonNext = inject('store')(observer(({history, store}) =>{
-  const error = store.error || '';
   return (
-    <Col xs="12">
-      <Row className="justify-content-center align-items-center">
-        <p>{error}</p>
-      </Row>
+    <Col xs="12" className="button-bottom">
       <Row className="justify-content-center align-items-center">
         <NavButton
           cls="arrow"
@@ -32,8 +28,10 @@ const MainPage = class extends React.Component {
 
   render() {
     const { store } = this.props;
+    const error = store.error || '';
+
     if (store.loading) {
-      return <Page><Spinner text="Initializing the live streaming session..."/></Page>;
+      return <Page><Loader text="Initializing the live streaming session..."/></Page>;
     }
 
     return (
@@ -41,6 +39,9 @@ const MainPage = class extends React.Component {
         <Title />
         <Effects />
         <Social />
+        <Row className="justify-content-center align-items-center">
+        <p>{error}</p>
+      </Row>
         <ButtonNext {...this.props}/>
       </Page>
     );

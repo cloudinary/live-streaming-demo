@@ -13,9 +13,9 @@ import {
   WhatsappIcon
 } from 'react-share';
 
-const Share = ({ url }) => {
+const Share = ({ url, className="" }) => {
   return (
-    <Col xs={12} className="mt-20">
+    <Col xs={12} className={className}>
     <Row className="justify-content-center align-items-center">
       <EmailShareButton url={url} >
         <EmailIcon size={32} round={true} />

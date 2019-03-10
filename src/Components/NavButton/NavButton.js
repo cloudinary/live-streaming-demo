@@ -23,7 +23,7 @@ export default ({
     <Button
       style={style}
       color={color || 'primary'}
-      className={cls}
+      className={"navbutton "+cls}
       type={type}
       onClick={() => {
         if (doBefore) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import { Page, NavButton, LiveIndicator, Spinner } from '../../Components';
+import { Page, Loader } from '../../Components';
 import { inject, observer } from 'mobx-react';
 import Env from '../../Utils/Env';
 
@@ -105,7 +105,7 @@ const VideoPlayerPage = class extends React.Component {
           </Col>
           {!playerReady && (
             <Page absolute>
-              <Spinner text="Hang on a second. We’re loading the video stream you requested." />
+              <Loader text="Hang on a second. We’re loading the video stream you requested." />
             </Page>
           )}
         </Row>

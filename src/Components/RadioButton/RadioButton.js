@@ -16,7 +16,6 @@ const RadioButton = class extends React.Component {
     const { name, label, checked } = this.props;
     return (
       <Fragment>
-        <div className="pretty p-icon p-smooth p-round">
           <input
             type="radio"
             name={'social'}
@@ -24,15 +23,12 @@ const RadioButton = class extends React.Component {
             checked={checked}
             value={name}
           />
-          <div className="state p-primary">
-            <label htmlFor={name} className=" radio-label">
+            <label htmlFor={name} className="radio-label">
               
               <span className={`icon ${name}-icon`} />
               {label}
 
             </label>
-          </div>
-        </div>
       </Fragment>
     );
   }

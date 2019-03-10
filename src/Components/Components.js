@@ -10,7 +10,9 @@ import RadioButton from './RadioButton/RadioButton';
 import UploadWidget from './UploadWidget/UploadWidget';
 import UploadedImage from './UploadedImage/UploadedImage';
 import Icon from './Icon/Icon';
-import Spinner from './Spinner/Spinner';
+import Loader from './Loader/Loader';
+import CallToAction from './CallToAction/CallToAction';
+import Share from './Share/Share';
 
 export {
     Header,
@@ -25,5 +27,7 @@ export {
     UploadWidget,
     UploadedImage,
     Icon,
-    Spinner
+    Loader,
+    CallToAction,
+    Share
 };

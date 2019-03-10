@@ -1,14 +1,14 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import Loader from 'react-loader-spinner';
+import { Spinner, Container, Row, Col } from 'reactstrap';
 
-const Spinner = ({text, absolute}) => {
+
+const Loader = ({text, absolute}) => {
   return (
       <Container className="h-100 text-white" style={absolute ? {position:"absolute"}: {}}>
         <Row style={{ height: '100px  ' }} />
         <Row className="justify-content-center align-items-center">
           <Col mx={12} className="text-center">
-            <Loader type="TailSpin" color="white" />
+          <Spinner className="spinner-size" color="light"/>
           </Col>
         </Row>
         <Row className="justify-content-center align-items-center">
@@ -20,4 +20,10 @@ const Spinner = ({text, absolute}) => {
   );
 };
 
-export default Spinner;
+export default Loader;
+
+/*
+import Loader from 'react-loader-spinner';
+<Loader type="TailSpin" color="white" />
+
+*/

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import posed, { PoseGroup } from 'react-pose';
 import {
@@ -63,8 +63,7 @@ const Router = props => {
           const { pathname } = location;
 
           if (!url && pathname !== '/' && !pathname.includes('/videoplayer/')) {
-            history.push('/');
-            return null;
+           return <Redirect to="/"/>
           }
 
           return (

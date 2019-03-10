@@ -2,7 +2,6 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Row, Col } from 'reactstrap';
 import { CheckBox, UploadWidget } from '../../../Components';
-import '../../../../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css'
 
 const EffectList = inject('store')(
   observer(({ store }) => {

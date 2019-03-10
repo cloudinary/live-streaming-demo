@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Icon } from '../Components';
+import '../../../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css'
 
 const CheckBox = class extends React.Component {
   constructor(props) {
@@ -18,13 +19,18 @@ const CheckBox = class extends React.Component {
     const { name, label, logo, checked } = this.props;
     return (
       <Fragment>
+      <div className="pretty p-icon p-smooth">
         <input type="checkbox"
                   name={name}
                   onChange={this.update}
                   checked={checked}
          />
-            <Icon name={logo}/>
-            <label>{label}</label>
+        <div className="state p-primary">        
+            <Icon className="icon mdi" name="Check"/>
+            <label><Icon name={logo}/>
+          {label}</label>
+        </div>
+    </div>
       </Fragment>
     );
   }
