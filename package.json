@@ -24,7 +24,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
     "react-share": "^2.4.0",
-    "reactstrap": "^7.1.0"
+    "reactstrap": "^7.1.0",
+    "webrtc-adapter": "^3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,5 +42,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage" : "https://staging-demo.cloudinary.com/live"
+  "homepage": "https://staging-demo.cloudinary.com/live"
 }

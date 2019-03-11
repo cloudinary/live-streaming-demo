@@ -23,26 +23,32 @@ const Option = types
     name: types.optional(types.string, ''),
     value: types.maybe(types.frozen({})),
     enabled: types.optional(types.boolean, false),
-    label:types.optional(types.string, ''),
-    logo:types.optional(types.string, '')
+    label: types.optional(types.string, ''),
+    logo: types.optional(types.string, '')
   })
   .actions(self => ({
     toggle() {
       self.enabled = !self.enabled;
     },
-    setValue(v){
+    setValue(v) {
       self.value = v;
     },
-    setEnabled(v){
+    setEnabled(v) {
       self.enabled = v;
     }
   }))
-  .views(self =>({
-    get checkbox(){
-      return Object.assign({}, {...self, checked: self.enabled, action:"toggleEffect"})
+  .views(self => ({
+    get checkbox() {
+      return Object.assign(
+        {},
+        { ...self, checked: self.enabled, action: 'toggleEffect' }
+      );
     },
-    get radio(){
-      return Object.assign({}, {...self, checked: self.enabled, action:"toggleSocial"})
+    get radio() {
+      return Object.assign(
+        {},
+        { ...self, checked: self.enabled, action: 'toggleSocial' }
+      );
     }
   }));
 
@@ -65,25 +71,25 @@ const MainStore = types
     }
 
     function toggleEffect(name) {
-      self.effects.find(e=>e.name==name).toggle();
-      console.log("toggled", self.effects.find(e=>e.name==name).enabled);
+      self.effects.find(e => e.name == name).toggle();
+      console.log('toggled', self.effects.find(e => e.name == name).enabled);
     }
 
     function setEffectValue(name, value) {
-      self.effects.find(e=>e.name==name).setValue(value);
+      self.effects.find(e => e.name == name).setValue(value);
     }
 
-    function setUploadedImage(image){
-      self.effects.find(e=>e.name=="logo").setValue(image);
+    function setUploadedImage(image) {
+      self.effects.find(e => e.name == 'logo').setValue(image);
     }
 
-    function delUploadedImage(){
+    function delUploadedImage() {
       setUploadedImage({});
     }
 
     function toggleSocial(label) {
-      self.socials.forEach(e=>{
-          e.setEnabled(e.label===label);
+      self.socials.forEach(e => {
+        e.setEnabled(e.label === label);
       });
     }
 
@@ -193,14 +199,21 @@ const MainStore = types
   })
   .views(self => ({
     get uploadedImage() {
-      return self.effects.find(e=>e.name=="logo").value;
+      return self.effects.find(e => e.name == 'logo').value;
+    },
+    get errorStr() {
+      if (!self.error) {
+        return '';
+      }
+      const errorJson = JSON.stringify(self.error);
+      return errorJson === '{}' ? '' : errorJson;
     }
   }))
   .views(self => ({
     //return an array of needed transformations and effects
     get transformations() {
-      let effects = self.effects.filter(e=>(e.enabled));
-      let socials = self.socials.filter(e=>(e.enabled));
+      let effects = self.effects.filter(e => e.enabled);
+      let socials = self.socials.filter(e => e.enabled);
       return effects.concat(socials);
     }
   }));
@@ -208,60 +221,59 @@ export default MainStore.create({
   title: { placeholder: 'My live video', value: 'My live video' },
   effects: [
     {
-      name:"logo",
-      value:{},
-      label:"Add your logo",
-      logo:"CloudUpload",
+      name: 'logo',
+      value: {},
+      label: 'Add your logo',
+      logo: 'CloudUpload',
       enabled: false
     },
     {
-      name:"intro",
-      value:{},
-      label:"Add intro animation",
-      logo:"Slideshow",
+      name: 'intro',
+      value: {},
+      label: 'Add intro animation',
+      logo: 'Slideshow',
       enabled: false
     },
     {
-      name:"vignette",
-      value:{},
-      label:"Apply vignette border",
-      logo:"Vignette",
+      name: 'vignette',
+      value: {},
+      label: 'Apply vignette border',
+      logo: 'Vignette',
       enabled: false
     },
     {
-      name:"blur",
-      value:{},
-      label:"Blur your video",
-      logo:"BlurOn",
+      name: 'blur',
+      value: {},
+      label: 'Blur your video',
+      logo: 'BlurOn',
       enabled: false
     }
   ],
   socials: [
     {
-      name:"social",
-      value:{},
-      label:"None",
-      logo:"",
+      name: 'social',
+      value: {},
+      label: 'None',
+      logo: '',
       enabled: true
     },
     {
-      name:"social",
-      value:{},
-      label:"Facebook",
-      logo:"facebook",
+      name: 'social',
+      value: {},
+      label: 'Facebook',
+      logo: 'facebook',
       enabled: false
     },
     {
-      name:"social",
-      value:{},
-      label:"Youtube",
-      logo:"youtube",
+      name: 'social',
+      value: {},
+      label: 'Youtube',
+      logo: 'youtube',
       enabled: false
     }
   ]
 
-
-      /*
+  /*
             />
           </Col>
           <Col xs={6}>
@@ -300,5 +312,4 @@ export default MainStore.create({
 
 
 */
-
 });

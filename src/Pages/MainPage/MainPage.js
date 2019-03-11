@@ -28,7 +28,7 @@ const MainPage = class extends React.Component {
 
   render() {
     const { store } = this.props;
-    const error = store.error || '';
+    const error = store.errorStr;
 
     if (store.loading) {
       return <Page><Loader text="Initializing the live streaming session..."/></Page>;
