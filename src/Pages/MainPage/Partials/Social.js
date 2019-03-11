@@ -3,9 +3,9 @@ import { inject, observer } from 'mobx-react';
 import { Row, Col, Button } from 'reactstrap';
 import { RadioButton } from '../../../Components';
 
-const showInput = (radio) =>{
-  return radio.label.toLowerCase()!=="none" && radio.enabled;
-}
+const showInput = radio => {
+  return radio.label.toLowerCase() !== 'none' && radio.enabled;
+};
 
 const renderSocials = socials => {
   return socials.map((e, i) => {
@@ -13,14 +13,18 @@ const renderSocials = socials => {
       <Row key={i}>
         <Col xs={6}>
           <RadioButton {...e.radio} />
-          {showInput(e) && <div><input type="text"></input></div>}
+          {showInput(e) && (
+            <div>
+              <input className="input-orange" type="text" />
+            </div>
+          )}
         </Col>
       </Row>
     );
   });
 };
 
-const Effects = props => {
+const Social = props => {
   const { store } = props;
   return (
     <Col xs={12} className="text-white">
@@ -31,4 +35,4 @@ const Effects = props => {
   );
 };
 
-export default inject('store')(observer(Effects));
+export default inject('store')(observer(Social));

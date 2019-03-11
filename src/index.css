@@ -215,6 +215,7 @@ background-color: #fa8a22;
 .call-to-action{
   border-bottom: #8c8c8c 1px solid;
   height:60px;
+  cursor: pointer;
 }
 
 .call-to-action-top{

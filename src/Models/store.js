@@ -81,14 +81,9 @@ const MainStore = types
       setUploadedImage({});
     }
 
-    function toggleSocial(name) {
+    function toggleSocial(label) {
       self.socials.forEach(e=>{
-        if (e.name==name){
-          e.setEnabled(true);
-        }
-        else{
-          e.setEnabled(false);
-        }
+          e.setEnabled(e.label===label);
       });
     }
 

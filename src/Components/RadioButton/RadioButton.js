@@ -8,8 +8,8 @@ const RadioButton = class extends React.Component {
   }
 
   update(e) {
-    const { store, action, name } = this.props;
-    store[action](name);
+    const { store, action, label } = this.props;
+    store[action](label);
   }
 
   render() {
