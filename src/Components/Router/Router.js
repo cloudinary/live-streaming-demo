@@ -56,8 +56,9 @@ const Routes = routerProps => {
 const Router = props => {
   const { url } = props.store;
   const {history} = props;
+  const basename = window.location.href.includes('/live') ? '/live' : '/'
   return (
-    <BrowserRouter history={history}>
+    <BrowserRouter history={history} basename={basename}>
       <Route
         render={({ location, history }) => {
           const { pathname } = location;
