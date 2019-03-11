@@ -3,12 +3,17 @@ import { inject, observer } from 'mobx-react';
 import { Row, Col, Button } from 'reactstrap';
 import { RadioButton } from '../../../Components';
 
+const showInput = (radio) =>{
+  return radio.label.toLowerCase()!=="none" && radio.enabled;
+}
+
 const renderSocials = socials => {
   return socials.map((e, i) => {
     return (
       <Row key={i}>
         <Col xs={6}>
           <RadioButton {...e.radio} />
+          {showInput(e) && <div><input type="text"></input></div>}
         </Col>
       </Row>
     );

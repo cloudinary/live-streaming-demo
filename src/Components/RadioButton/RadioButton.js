@@ -18,7 +18,7 @@ const RadioButton = class extends React.Component {
       <Fragment>
           <input
             type="radio"
-            name={'social'}
+            name={name}
             onChange={this.update}
             checked={checked}
             value={name}

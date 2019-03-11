@@ -243,21 +243,21 @@ export default MainStore.create({
   ],
   socials: [
     {
-      name:"none",
+      name:"social",
       value:{},
       label:"None",
       logo:"",
       enabled: true
     },
     {
-      name:"facebook",
+      name:"social",
       value:{},
       label:"Facebook",
       logo:"facebook",
       enabled: false
     },
     {
-      name:"youtube",
+      name:"social",
       value:{},
       label:"Youtube",
       logo:"youtube",
