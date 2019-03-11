@@ -63,6 +63,7 @@ const Router = props => {
           const { pathname } = location;
 
           if (!url && pathname !== '/' && !pathname.includes('/videoplayer/')) {
+            console.log("redirecting because pathname is:", pathname);
            return <Redirect to="/"/>
           }
 
