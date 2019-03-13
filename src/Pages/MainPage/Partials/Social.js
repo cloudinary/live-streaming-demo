@@ -11,11 +11,18 @@ const renderSocials = socials => {
   return socials.map((e, i) => {
     return (
       <Row key={i}>
-        <Col xs={6}>
+        <Col xs={12}>
           <RadioButton {...e.radio} />
           {showInput(e) && (
+            <div className="social-input-container">
             <div>
-              <input className="input-orange" type="text" />
+            <p className="text-medium">URL</p>
+            </div>
+            <div>
+            <input className="input-orange social-input" type="text" placeholder="rtmp://"/>
+            </div>
+            <p></p>
+            <p className="text-small">Enter the Server URL and Stream Key separated by a slash (/), available from the Facebook Create Live Stream page.</p>
             </div>
           )}
         </Col>
