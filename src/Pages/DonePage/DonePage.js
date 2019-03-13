@@ -53,9 +53,7 @@ const DonePage = class extends React.Component {
   }
 
   render() {
-    const {store, location} = this.props;
-    const { title, publicId} = store;
-    const path = getPath(publicId, location);
+    const {title, url} = this.props.store;
     return (
       <Page className="text-white">
         <Col xs={12} className="center h-100">
@@ -65,7 +63,7 @@ const DonePage = class extends React.Component {
           <CallToAction topAction icon="Share" text="Share" onClick={this.toggleShareModal}/>
           <Modal isOpen={this.state.showShareModal} toggle={this.toggleShareModal} contentClassName="modal-share">
           <ModalBody>
-            <Share url={path}/>
+            <Share url={url}/>
           </ModalBody>
         </Modal>
 

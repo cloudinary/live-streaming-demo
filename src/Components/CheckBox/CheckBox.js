@@ -10,7 +10,6 @@ const CheckBox = class extends React.Component {
 
   update(e) {
     const { store, action, name } = this.props;
-    console.log("clicked:",action,name);
     store[action](name);
   }
 

@@ -1,40 +1,29 @@
 const TRANSFORMATIONS = {
-  //"opener": () => ``,
   blur: () => 'e_blur',
   logo: logo => `l_${logo},w_100,g_north_west,x_10,y_10`,
   vignette: () => 'e_vignette:60'
 };
 
-const TRANSFORMATIONS_QUERY_STRING = {
-  opener: () => true,
-  blur: () => true,
-  logo: logo => `${logo}`,
-  vignette: () => true
+const toNameValuePairs = obj => {
+  const keys = Object.keys(obj);
+  if (keys && keys.length) {
+    return keys.map(key => {
+      return { name: key, value: obj[key] };
+    });
+  }
+  return [];
 };
 
-const transformationRaw = (transHash = {}) => {
-  let trans = ['x_0'];
+const transformationRaw = transformations => {
+  const rawTransformations = ['x_0'];
 
-  transHash.forEach(({ name, value }) => {
-    const { name, value } = t;
+  toNameValuePairs(transformations).forEach(({ name, value }) => {
     if (TRANSFORMATIONS[name]) {
-      trans.push(TRANSFORMATIONS[name](value));
+      rawTransformations.push(TRANSFORMATIONS[name](value));
     }
   });
 
-  return trans.join('/');
+  return rawTransformations.join('/');
 };
 
-const transformationToQueryString = (transHash = {}) => {
-  let trans = [];
-
-  transHash.forEach(({ name, value }) => {
-    if (TRANSFORMATIONS[name]) {
-      trans.push(name + '=' + TRANSFORMATIONS_QUERY_STRING[name](value));
-    }
-  });
-
-  return trans.join('&');
-};
-
-export { transformationRaw, transformationToQueryString };
+export { transformationRaw };

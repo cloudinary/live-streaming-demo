@@ -36,7 +36,7 @@ const Routes = routerProps => {
       />
       <Route
         path="/videoplayer/:publicId"
-        render={props => <VideoPlayerPage {...routerProps} {...props} />}
+        render={props => <VideoPlayerPage {...props} {...routerProps} />}
         key="videoplayer"
       />
       <Route
@@ -60,7 +60,7 @@ const Router = props => {
   return (
     <BrowserRouter history={history} basename={basename}>
       <Route
-        render={({ location, history }) => {
+        render={({ location }) => {
           const { pathname } = location;
 
           //redirect to main page if we're not livestriming or playing a video.

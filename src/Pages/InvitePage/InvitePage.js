@@ -7,24 +7,14 @@ import { getPath } from '../../Utils/Routing';
 
 import './InvitePage.css';
 
-/*
-const InvitePage = class extends React.Component {
-  constructor(props) {
-    super(props);
-    if (!props.store.url) {
-      props.history.push('/');
-    }
-  }
-*/
-
 const InvitePage = class extends React.Component {
   componentDidMount() {
-    this.props.store.initLiveStream();
+    this.props.store.initLiveStream(this.props.location.pathname);
   }
 
   render() {
     const { store } = this.props;
-    const error = store.errorStr;
+    const { url, errorStr: error} = store;
 
     if (store.loading) {
       return (
@@ -34,12 +24,11 @@ const InvitePage = class extends React.Component {
       );
     }
 
-    const path = getPath(this.props.store.publicId, this.props.location);
     return (
       <Page className="text-white">
         <Title />
-        <Url url={path} />
-        <Share url={path} className="mt-20" />
+        <Url url={url} />
+        <Share url={url} className="mt-20" />
         <Row className="justify-content-center align-items-center">
           <p>{error}</p>
         </Row>

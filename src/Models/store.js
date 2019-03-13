@@ -1,6 +1,6 @@
 import { types, getSnapshot, applySnapshot } from 'mobx-state-tree';
 import initLS from 'cloudinary-live-stream';
-import { Checkbox } from '@material-ui/core';
+import { getPath } from '../Utils/Routing';
 
 const CLD_API_HOST = 'api.cloudinary.com';
 const CLD_RES_HOST = 'res.cloudinary.com';
@@ -16,7 +16,9 @@ const UPLOAD_TYPE = 'upload';
 const getLiveStreamInitOptions = (self, liveStream) => {
   return Object.assign({}, self.targets, {
     cloudName: CLOUD_NAME,
-    uploadPreset: UPLOAD_PRESET,
+    uploadPreset: self.transformations.includes('intro')
+      ? UPLOAD_PRESET_OPENER
+      : UPLOAD_PRESET,
     debug: 'all',
     events: {
       /*
@@ -99,6 +101,39 @@ const MainStore = types
   .actions(self => {
     let liveStream = null;
     let initialSnapshot;
+
+    const getLiveStreamInitOptions = () => {
+      return Object.assign({}, self.targets, {
+        cloudName: CLOUD_NAME,
+        uploadPreset: self.transformations.find(t=>t.name==='intro')
+          ? UPLOAD_PRESET_OPENER
+          : UPLOAD_PRESET,
+        debug: 'all',
+        events: {
+          /*
+        start: function(args) {
+          // user code
+          console.log('JANUS START !!! args:', args);
+        },
+        stop: function(args) {
+          // user code
+          console.log('JANUS STOP !!!');
+        },
+        error: function(error) {
+          // user code
+          console.log('JANUS ERROR !!!:', error);
+        }
+        ,
+        */
+          local_stream: function(stream) {
+            //attaching the stream to a video view:
+            liveStream.attach(self.videoRef, stream);
+          }
+        }
+      });
+    };
+    
+
     function afterCreate() {
       initialSnapshot = getSnapshot(self);
     }
@@ -146,16 +181,13 @@ const MainStore = types
       self.loading = loading;
     }
 
-    function setLiveStream(ls, err) {
+    function setLiveStream(err, ls, pathname) {
       if (err) {
         self.setError(err);
       } else {
         liveStream = ls;
-        console.log('setting url');
-        self.setURL(ls.response.url);
-        console.log('setting public id');
+        self.setURL(getPath(ls.response.public_id, self.transformations.filter(trans=>trans.name !== 'intro'), pathname));
         self.setPublicId(ls.response.public_id);
-        console.log('LIVE STREAM: ', ls);
         self.setError(false);
       }
       self.setLoading(false);
@@ -177,21 +209,21 @@ const MainStore = types
       self.videoRef = vr;
     }
 
-    function initLiveStream() {
+    function initLiveStream(pathname) {
       self.setLoading(true);
 
-      initLS(getLiveStreamInitOptions(self, liveStream))
+      initLS(getLiveStreamInitOptions())
         .then(newLiveStream => {
-          self.setLiveStream(newLiveStream);
+          self.setLiveStream(null, newLiveStream, pathname);
         })
         .catch(err => {
-          self.setLiveStream(false, err);
+          self.setLiveStream(err);
         });
     }
 
     function startLiveStream(videoRef) {
       //Flag for Main Page to request a fresh store
-      self.needRestart = true; 
+      self.needRestart = true;
 
       if (liveStream) {
         self.setVideoRef(videoRef);
@@ -238,7 +270,19 @@ const MainStore = types
       return errorJson === '{}' ? '' : errorJson;
     },
     get transformations() {
-      return self.effects.filter(e => e.enabled);
+      let transformations = [];
+      self.effects.forEach(({ name, value, enabled }) => {
+        if (enabled) {
+          if (name === 'logo') {
+            if (value && value.publicId) {
+              transformations.push({ name, value: value.publicId });
+            }
+          } else {
+            transformations.push({ name, value: true });
+          }
+        }
+      });
+      return transformations;
     },
     get targets() {
       let targets = {
