@@ -1,6 +1,6 @@
 import { types, getSnapshot, applySnapshot } from 'mobx-state-tree';
 import initLS from 'cloudinary-live-stream';
-import { getPath } from '../Utils/Routing';
+import { getShareUrl } from '../Utils/Routing';
 
 const CLD_API_HOST = 'api.cloudinary.com';
 const CLD_RES_HOST = 'res.cloudinary.com';
@@ -186,7 +186,7 @@ const MainStore = types
         self.setError(err);
       } else {
         liveStream = ls;
-        self.setURL(getPath(ls.response.public_id, self.transformations.filter(trans=>trans.name !== 'intro'), pathname));
+        self.setURL(getShareUrl(ls.response.public_id, self.transformations.filter(trans=>trans.name !== 'intro'), pathname));
         self.setPublicId(ls.response.public_id);
         self.setError(false);
       }

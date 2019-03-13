@@ -14,9 +14,13 @@ const paramsToQueryString = params => {
   return result;
 };
 
-export const getPath = (publicId, params, pathname) => {
+export const getShareUrl = (publicId, params, pathname) => {
   return `${window.location.href.replace(
     pathname,
     ''
   )}/videoplayer/${publicId}/${paramsToQueryString(params)}`;
+};
+
+export const getHomeUrl = () => {
+  return window.location.href.split("/").slice(0,4).join("/");
 };

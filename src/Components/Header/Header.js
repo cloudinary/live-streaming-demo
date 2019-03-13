@@ -1,13 +1,15 @@
 import React from 'react';
 import { Col, Row } from 'reactstrap';
+import { getHomeUrl } from '../../Utils/Routing';
 import './Header.css';
 
-export default () => {
+const Header = (props) => {
+    const homeUrl = getHomeUrl();
     return (
         <div className="header header-bg">
             <Row noGutters className="header">
                 <Col md={10} lg={8} xl={6} className="offset-md-1 offset-lg-2 offset-xl-3 header-bg">
-                <a style={{display:"block"}} href="/">
+                <a style={{display:"block"}} href={homeUrl}>
                     <div className="header-grid align-items-center justify-content-center">
                         <div className="header-logo" />
                         <div className="header-text header-text-grid">
@@ -22,4 +24,5 @@ export default () => {
     );
 };
 
+export default Header;
 

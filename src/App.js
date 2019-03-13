@@ -11,7 +11,6 @@ class App extends Component {
   }
   
   render() {
-    //const { routes, location } = this.props;
     return (
       <div id="app" className="bg app-container">
         <Header />
