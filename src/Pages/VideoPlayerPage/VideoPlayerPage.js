@@ -90,6 +90,7 @@ const VideoPlayerPage = class extends React.Component {
         addSource();
       } else {
         clearInterval(this.state.intervalId);
+        player.mute();
       }
     }, 1000);
     this.setState({ intervalId: intervalId });
