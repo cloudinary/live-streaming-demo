@@ -22,5 +22,5 @@ export const getShareUrl = (publicId, params, pathname) => {
 };
 
 export const getHomeUrl = () => {
-  return window.location.href.split("/").slice(0,4).join("/");
+  return window.location.href.split("/").slice(0,5).join("/");
 };
