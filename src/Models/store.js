@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import { types, getSnapshot, applySnapshot } from 'mobx-state-tree';
 import initLS from 'cloudinary-live-stream';
 import { Checkbox } from '@material-ui/core';
 
@@ -13,6 +13,35 @@ const UPLOAD_PRESET_IMAGES = 'images';
 const UPLOAD_WIDGET_PREFIX = 'https://widget.cloudinary.com';
 const UPLOAD_TYPE = 'upload';
 
+const getLiveStreamInitOptions = (self, liveStream) => {
+  return Object.assign({}, self.targets, {
+    cloudName: CLOUD_NAME,
+    uploadPreset: UPLOAD_PRESET,
+    debug: 'all',
+    events: {
+      /*
+    start: function(args) {
+      // user code
+      console.log('JANUS START !!! args:', args);
+    },
+    stop: function(args) {
+      // user code
+      console.log('JANUS STOP !!!');
+    },
+    error: function(error) {
+      // user code
+      console.log('JANUS ERROR !!!:', error);
+    }
+    ,
+    */
+      local_stream: function(stream) {
+        //attaching the stream to a video view:
+        liveStream.attach(self.videoRef, stream);
+      }
+    }
+  });
+};
+
 const Input = types.model({
   value: types.optional(types.string, ''),
   placeholder: types.optional(types.string, '')
@@ -24,7 +53,9 @@ const Option = types
     value: types.maybe(types.frozen({})),
     enabled: types.optional(types.boolean, false),
     label: types.optional(types.string, ''),
-    logo: types.optional(types.string, '')
+    logo: types.optional(types.string, ''),
+    info: types.optional(types.string, ''),
+    url: types.maybe(Input)
   })
   .actions(self => ({
     toggle() {
@@ -54,6 +85,8 @@ const Option = types
 
 const MainStore = types
   .model('MainStore', {
+    startedAtMainPage: types.optional(types.boolean, false),
+    needRestart: types.optional(types.boolean, false),
     title: types.maybe(Input),
     effects: types.array(Option),
     socials: types.array(Option),
@@ -65,9 +98,25 @@ const MainStore = types
   })
   .actions(self => {
     let liveStream = null;
+    let initialSnapshot;
+    function afterCreate() {
+      initialSnapshot = getSnapshot(self);
+    }
 
-    function setInputValue(inputName, value) {
-      self[inputName].value = value;
+    function resetStore() {
+      applySnapshot(self, initialSnapshot); // set store to default
+    }
+
+    function setStartedAtMainPage(val = true) {
+      self.startedAtMainPage = val;
+    }
+
+    function setInputValue(name, value, model) {
+      if (model) {
+        self[model].find(e => e.label === name).setValue(value);
+      } else {
+        self[name].value = value;
+      }
     }
 
     function toggleEffect(name) {
@@ -130,43 +179,20 @@ const MainStore = types
 
     function initLiveStream() {
       self.setLoading(true);
-      initLS({
-        cloudName: CLOUD_NAME,
-        uploadPreset: UPLOAD_PRESET,
-        debug: 'all',
-        hlsTarget: true,
-        fileTarget: true,
-        events: {
-          start: function(args) {
-            // user code
-            console.log('JANUS START !!! args:', args);
-          },
-          stop: function(args) {
-            // user code
-            console.log('JANUS STOP !!!');
-          },
-          error: function(error) {
-            // user code
-            console.log('JANUS ERROR !!!:', error);
-          },
-          local_stream: function(stream) {
-            // user code, typically attaching the stream to a video view:
-            console.log('JASNUS LOCAL_STREAM !!!, stream:', stream);
-            liveStream.attach(self.videoRef, stream);
-          }
-        }
-      })
+
+      initLS(getLiveStreamInitOptions(self, liveStream))
         .then(newLiveStream => {
-          console.log('setting live stream:', newLiveStream);
           self.setLiveStream(newLiveStream);
         })
         .catch(err => {
-          console.log('and catching err ls:', err);
           self.setLiveStream(false, err);
         });
     }
 
     function startLiveStream(videoRef) {
+      //Flag for Main Page to request a fresh store
+      self.needRestart = true; 
+
       if (liveStream) {
         self.setVideoRef(videoRef);
         liveStream.start(self.publicId);
@@ -180,6 +206,9 @@ const MainStore = types
     }
 
     return {
+      afterCreate,
+      resetStore,
+      setStartedAtMainPage,
       setLiveStream,
       initLiveStream,
       setVideoRef,
@@ -207,16 +236,24 @@ const MainStore = types
       }
       const errorJson = JSON.stringify(self.error);
       return errorJson === '{}' ? '' : errorJson;
-    }
-  }))
-  .views(self => ({
-    //return an array of needed transformations and effects
+    },
     get transformations() {
-      let effects = self.effects.filter(e => e.enabled);
-      let socials = self.socials.filter(e => e.enabled);
-      return effects.concat(socials);
+      return self.effects.filter(e => e.enabled);
+    },
+    get targets() {
+      let targets = {
+        hlsTarget: true,
+        fileTarget: true
+      };
+
+      let selectedSocialMedia = self.socials.filter(e => e.enabled);
+      if (selectedSocialMedia.value) {
+        targets[selectedSocialMedia.name + 'Uri'] = selectedSocialMedia.value;
+      }
+      return targets;
     }
   }));
+
 export default MainStore.create({
   title: { placeholder: 'My live video', value: 'My live video' },
   effects: [
@@ -262,54 +299,20 @@ export default MainStore.create({
       value: {},
       label: 'Facebook',
       logo: 'facebook',
-      enabled: false
+      enabled: false,
+      info:
+        'Enter the Server URL and Stream Key separated by a slash (/), available from the Facebook Create Live Stream page.',
+      url: { placeholder: 'rtmp://', value: '' }
     },
     {
       name: 'social',
       value: {},
       label: 'Youtube',
       logo: 'youtube',
-      enabled: false
+      enabled: false,
+      info:
+        'Enter the Server URL and Stream Key separated with a slash (/), available from your YouTube Live Dashboard.',
+      url: { placeholder: 'rtmp://', value: '' }
     }
   ]
-
-  /*
-            />
-          </Col>
-          <Col xs={6}>
-          { store.effects.logo && store.effects.logo.enabled ?
-          <Button className="bg-light text-black">Upload</Button> : null}
-          </Col>
-        </Row>
-      </Col>
-      <Col xs={12}>
-        <CheckBox
-          name="intro"
-          label="Add intro animation"
-          Logo={() => <Slideshow className="svg-icons" />}
-          checked={isEnabled(store, 'intro')}
-          action="toggleEffect"
-        />
-      </Col>
-      <Col xs="12">
-        <CheckBox
-          name="vignette"
-          label="Apply vignette border"
-          Logo={() => <Vignette className="svg-icons" />}
-          checked={isEnabled(store, 'vignette')}
-          action="toggleEffect"
-        />
-      </Col>
-      <Col xs="12">
-        <CheckBox
-          name="blur"
-          label="Blur your video"
-          Logo={() => <BlurOn className="svg-icons" />}
-          checked={isEnabled(store, 'blur')}
-          action="toggleEffect"
-        />
-      </Col>
-
-
-*/
 });

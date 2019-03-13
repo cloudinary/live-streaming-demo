@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Row, Col, Button } from 'reactstrap';
-import { RadioButton } from '../../../Components';
+import { Row, Col } from 'reactstrap';
+import { RadioButton, TextInput } from '../../../Components';
 
 const showInput = radio => {
   return radio.label.toLowerCase() !== 'none' && radio.enabled;
@@ -19,10 +19,10 @@ const renderSocials = socials => {
             <p className="text-medium">URL</p>
             </div>
             <div>
-            <input className="input-orange social-input" type="text" placeholder="rtmp://"/>
+            <TextInput name={e.label} model="socials" className="input-orange social-input" type="text"/>
             </div>
             <p></p>
-            <p className="text-small">Enter the Server URL and Stream Key separated by a slash (/), available from the Facebook Create Live Stream page.</p>
+            <p className="text-small">{e.info}</p>
             </div>
           )}
         </Col>

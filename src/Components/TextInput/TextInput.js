@@ -9,18 +9,22 @@ const TextInput = class extends React.Component {
   }
 
   update(e) {
-    const { store, name } = this.props;
-    store.setInputValue(name, `${e.target.value}`);
+    const { store, name, model } = this.props;
+    store.setInputValue(name, `${e.target.value}`, model);
   }
 
   render() {
-    const { store, name } = this.props;
-    const {value, placeholder} = store[name];
+    const { store, name, model, className="input-orange"} = this.props;
+    const element = model ? store[model].find(e=>e.label===name) : store[name];
+    console.log('name: ', name, ' model:', model, ' element:', JSON.stringify(element));
+    const {value} = element.value;
+    const {placeholder} = model ? element.url : element;
+
     return (
-        <Input
+        <input
           type="text"
           name={name}
-          className="input-orange"
+          className={className}
           placeholder={placeholder}
           onChange={this.update}
           value={value}

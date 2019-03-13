@@ -23,25 +23,18 @@ const ButtonNext = inject('store')(observer(({history, store}) =>{
 
 const MainPage = class extends React.Component {
   componentDidMount() {
-    this.props.store.initLiveStream();
+    this.props.store.setStartedAtMainPage();
+    if (this.props.store.needRestart){
+      this.props.store.resetStore();
+    }
   }
 
-  render() {
-    const { store } = this.props;
-    const error = store.errorStr;
-
-    if (store.loading) {
-      return <Page><Loader text="Initializing the live streaming session..."/></Page>;
-    }
-
+  render() {    
     return (
       <Page>
         <Title />
         <Effects />
         <Social />
-        <Row className="justify-content-center align-items-center">
-        <p>{error}</p>
-      </Row>
         <ButtonNext {...this.props}/>
       </Page>
     );

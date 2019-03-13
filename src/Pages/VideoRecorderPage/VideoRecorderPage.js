@@ -8,7 +8,6 @@ import './VideoRecorderPage.css';
 const VideoRecorderPage = class extends React.Component {
   constructor(props) {
     super(props);
-    console.log('url', props.store.url);
     if (!props.store.url) {
       props.history.push('/');
     }
@@ -26,7 +25,7 @@ const VideoRecorderPage = class extends React.Component {
     this.props.store.stopLiveStream();
   }
 
-  componentDidMount() {
+  componentDidMount() {   
     this.startLiveStream();
   }
 

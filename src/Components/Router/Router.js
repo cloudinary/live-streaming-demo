@@ -54,7 +54,7 @@ const Routes = routerProps => {
 };
 
 const Router = props => {
-  const { url } = props.store;
+  const { startedAtMainPage } = props.store;
   const {history} = props;
   const basename = window.location.href.includes('/live') ? '/live' : '/'
   return (
@@ -64,7 +64,7 @@ const Router = props => {
           const { pathname } = location;
 
           //redirect to main page if we're not livestriming or playing a video.
-          if (!url && !(pathname === '/' || pathname === basename+'/') && !pathname.includes('/videoplayer/')) {
+          if (!startedAtMainPage && !(pathname === '/' || pathname === basename+'/') && !pathname.includes('/videoplayer/')) {
            return <Redirect to="/"/>
           }
 
