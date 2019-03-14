@@ -25,7 +25,7 @@ const VideoRecorderPage = class extends React.Component {
     this.props.store.stopLiveStream();
   }
 
-  componentDidMount() {   
+  componentDidMount() {
     this.startLiveStream();
   }
 
@@ -35,34 +35,33 @@ const VideoRecorderPage = class extends React.Component {
     const video = this.videoRef;
     return (
       <Page>
-          <Col xs={12} className="center">
-            <LiveIndicator />
-          </Col>
-          <div className="video-recorder-container-outer">
-        <div xs={12} className="center relative">
-
+        <Col xs={12} className="center">
+          <LiveIndicator />
+        </Col>
+        <div className="video-recorder-container-outer">
+          <div xs={12} className="center relative">
             <video
               ref={video}
-              className="video"
+              className="cld-video-recorder"
               id="video"
               autoPlay
               muted="muted"
               playsInline
             />
           </div>
-          </div>
-            <Col xs={12} className="center button-bottom">
-              <NavButton
-                cls="stop"
-                color="white"
-                bgColor="rgb(250,138,33)"
-                doBefore={stop}
-                to="/done"
-                history={history}
-              >
-                &#9632;
-              </NavButton>
-            </Col>
+        </div>
+        <Col xs={12} className="center button-bottom">
+          <NavButton
+            cls="stop"
+            color="white"
+            bgColor="rgb(250,138,33)"
+            doBefore={stop}
+            to="/done"
+            history={history}
+          >
+            &#9632;
+          </NavButton>
+        </Col>
       </Page>
     );
   }

@@ -314,7 +314,6 @@ input[type='radio']:checked {
   padding-top:0;
 }
 
-
 .relative{
   position: relative;
 }
@@ -322,5 +321,12 @@ input[type='radio']:checked {
 .cld-video-player {
   position: absolute;
   top: 20px;
-  padding-top: 56.25% !important;
+  padding-top: 56.25%;
+}
+
+.cld-video-recorder {
+  position: absolute;
+  left:0;
+  width: 100%;
+  padding-top: 0;
 }
