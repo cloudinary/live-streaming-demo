@@ -38,7 +38,9 @@ const VideoRecorderPage = class extends React.Component {
           <Col xs={12} className="center">
             <LiveIndicator />
           </Col>
-          <Col xs={12} className="center">
+          <div className="video-recorder-container-outer">
+        <div xs={12} className="center relative">
+
             <video
               ref={video}
               className="video"
@@ -47,7 +49,8 @@ const VideoRecorderPage = class extends React.Component {
               muted="muted"
               playsInline
             />
-          </Col>
+          </div>
+          </div>
             <Col xs={12} className="center button-bottom">
               <NavButton
                 cls="stop"

@@ -309,6 +309,12 @@ input[type='radio']:checked {
   padding: 20px;
 }
 
+.video-recorder-container-outer {
+  padding: 20px;
+  padding-top:0;
+}
+
+
 .relative{
   position: relative;
 }
