@@ -102,13 +102,41 @@ const VideoPlayerPage = class extends React.Component {
 
     return (
       <Page>
-        <Row>
+        <div className="video-container-outer">
+        <div xs={12} className="center relative">
         {!playerReady && (
             <Page absolute>
               <Loader text="Hang on a second. We’re loading the video stream you requested." />
             </Page>
           )}
-          <Col xs={12} className="mt-20 center">
+            <video
+              ref={video}
+              className="cld-video-player"
+              controls
+              autoPlay
+              playsInline
+              muted
+            />
+          </div>
+          </div>
+      </Page>
+    );
+  }
+};
+
+export default inject('store')(observer(VideoPlayerPage));
+
+/*
+
+
+      <Page>
+        <Row className="justify-content-center align-items-center mg-0">
+        {!playerReady && (
+            <Page absolute>
+              <Loader text="Hang on a second. We’re loading the video stream you requested." />
+            </Page>
+          )}
+          <Col xs={12} className="mt-20 center video-container">
             <video
               ref={video}
               className="cld-video-player"
@@ -120,8 +148,6 @@ const VideoPlayerPage = class extends React.Component {
           </Col>
         </Row>
       </Page>
-    );
-  }
-};
 
-export default inject('store')(observer(VideoPlayerPage));
+
+*/
