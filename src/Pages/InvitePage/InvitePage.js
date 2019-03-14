@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Page, Share, Loader } from '../../Components';
-import { Row } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Title, Url, Stream } from './Partials';
 import { getPath } from '../../Utils/Routing';
 
@@ -29,9 +29,11 @@ const InvitePage = class extends React.Component {
         <Title />
         <Url url={url} />
         <Share url={url} className="mt-20" />
-        <Row className="justify-content-center align-items-center">
+        <Col xs="12" className="button-bottom">
+        <Row className="">
           <p>{error}</p>
         </Row>
+        </Col>
         <Stream {...this.props} />
       </Page>
     );

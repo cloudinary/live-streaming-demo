@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row } from 'reactstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Button } from 'reactstrap';
-
+import {TextInput} from '../../../Components';
 const Url = ({ url }) => {
   return (
     <React.Fragment>
@@ -10,7 +10,7 @@ const Url = ({ url }) => {
       <div className="mt-40">
         <p>URL</p>
         <div className="border-bottom-orange">
-          <p className="text-orange push-down">{url}</p>
+        <TextInput className="input-orange" defaultValue={url} type="text"/>
         </div>
         </div>
       </Col>

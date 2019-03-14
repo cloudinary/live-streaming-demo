@@ -1,22 +1,21 @@
 import React from 'react';
-import { Col } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import { NavButton, Icon } from '../../../Components';
 
 const Stream = ({ history }) => {
   return (
-    <Col xs={12} className="center bottom-div">
-        <hr />
-        <p className="text-small">
+    <Col xs="12" className="button-bottom">
+      <Row className="justify-content-center align-items-center bottom-text center">
+      <hr/>
+        <p className="text-small p-10">
           Clicking the button below will start your streaming session. Are you
           ready to go live?
         </p>
-      <Col xs={12} className="button-bottom">
-      
       <NavButton to="/videorecorder" history={history}>
         <Icon name={'Videocam'} />
         Start Streaming
       </NavButton>
-      </Col>
+      </Row>
     </Col>
   );
 };
@@ -24,10 +23,21 @@ const Stream = ({ history }) => {
 export default Stream;
 
 /*
+<Col xs={12} className="center bottom-div">
+      <Col xs={12} className="button-bottom">
+      <hr />
+        <p className="text-small">
+          Clicking the button below will start your streaming session. Are you
+          ready to go live?
+        </p>
+      <NavButton to="/videorecorder" history={history}>
+        <Icon name={'Videocam'} />
+        Start Streaming
+      </NavButton>
+      </Col>
+    </Col>
 
-        <NavButton to="/videorecorder" history={history}>
-          Start Streaming
-        </NavButton>
 
 
+    
 */

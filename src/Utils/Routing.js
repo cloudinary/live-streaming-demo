@@ -23,5 +23,7 @@ export const getShareUrl = (publicId, params, pathname) => {
 
 export const getHomeUrl = () => {
   const url = window.location.href.split("/").slice(0,4).join("/");
+  console.log(url);
+  console.log(url+'/');
   return url.endsWith('/') ? url : url+'/';
 };

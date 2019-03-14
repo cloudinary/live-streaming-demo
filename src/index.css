@@ -66,6 +66,7 @@ hr {
   color: #8c8c8c;
   background-color: #8c8c8c;
   border: none;
+  width: 100%;
 }
 
 .border-bottom-orange {
@@ -188,9 +189,16 @@ input[type='radio']:checked {
 
 .bottom-div {
   height: 100px;
-  position: absolute !important;
-  bottom: 0 !important;
+  /*bottom: 0 !important;*/
+  /*position: absolute !important;*/
+  position: relative;
 }
+
+.bottom-text {
+  padding: inherit;
+}
+
+
 
 .navbutton {
   border-color: white !important;
@@ -275,7 +283,8 @@ input.social-input::placeholder {
   opacity: 1; /* Firefox */
 }
 
-
-
 .col-width-40px { flex: 0 0 40px; }
 
+.overflow-scroll{
+  overflow: scroll;
+}

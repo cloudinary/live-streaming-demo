@@ -14,11 +14,14 @@ const TextInput = class extends React.Component {
   }
 
   render() {
-    const { store, name, model, className="input-orange"} = this.props;
+    const { store, name, model, className="input-orange", defaultValue} = this.props;
     const element = model ? store[model].find(e=>e.label===name) : store[name];
-    console.log('name: ', name, ' model:', model, ' element:', JSON.stringify(element));
-    const {value} = element.value;
-    const {placeholder} = model ? element.url : element;
+    let placeholder = "";
+    if (model || element){
+      placeholder = model ? element.url.placeholder : element.placeholder;
+    }
+
+    const valueProp = defaultValue ? {defaultValue} : {value: element ? element.value : ""};
 
     return (
         <input
@@ -26,8 +29,8 @@ const TextInput = class extends React.Component {
           name={name}
           className={className}
           placeholder={placeholder}
-          onChange={this.update}
-          value={value}
+          onChange={defaultValue ? null :this.update}         
+          {...valueProp}
         />
     );
   }
