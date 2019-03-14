@@ -6,15 +6,17 @@ const Stream = ({ history }) => {
   return (
     <Col xs="12" className="button-bottom">
       <Row className="justify-content-center align-items-center bottom-text center">
-      <hr/>
-        <p className="text-small p-10">
-          Clicking the button below will start your streaming session. Are you
-          ready to go live?
-        </p>
-      <NavButton to="/videorecorder" history={history}>
-        <Icon name={'Videocam'} />
-        Start Streaming
-      </NavButton>
+        <hr />
+        <div className="w-100">
+          <p className="text-small">
+            Clicking the button below will start your streaming session. Are you
+            ready to go live?
+          </p>
+        </div>
+        <NavButton to="/videorecorder" history={history}>
+          <Icon name={'Videocam'} />
+          Start Streaming
+        </NavButton>
       </Row>
     </Col>
   );

@@ -324,7 +324,7 @@ export default MainStore.create({
     },
     {
       name: 'blur',
-      value: {},
+      value: "",
       label: 'Blur your video',
       logo: 'BlurOn',
       enabled: false
@@ -333,14 +333,14 @@ export default MainStore.create({
   socials: [
     {
       name: 'social',
-      value: {},
+      value: "",
       label: 'None',
       logo: '',
       enabled: true
     },
     {
       name: 'social',
-      value: {},
+      value: "",
       label: 'Facebook',
       logo: 'facebook',
       enabled: false,
@@ -350,7 +350,7 @@ export default MainStore.create({
     },
     {
       name: 'social',
-      value: {},
+      value: "",
       label: 'Youtube',
       logo: 'youtube',
       enabled: false,
