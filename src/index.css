@@ -330,3 +330,9 @@ input[type='radio']:checked {
   width: 100%;
   padding-top: 0;
 }
+
+.footer{
+  height:50px;
+  width:100%;
+  background-color: rgba(14,47,90);
+}

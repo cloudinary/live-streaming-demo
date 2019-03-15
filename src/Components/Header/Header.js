@@ -1,10 +1,11 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 import { getHomeUrl } from '../../Utils/Routing';
 import './Header.css';
 
 const Header = (props) => {
-    const homeUrl = getHomeUrl();
+    const homeUrl = getHomeUrl(props.location.pathname);
     return (
         <div className="header header-bg">
             <Row noGutters className="header">
@@ -24,5 +25,5 @@ const Header = (props) => {
     );
 };
 
-export default Header;
+export default withRouter(Header);
 

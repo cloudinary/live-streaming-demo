@@ -1,24 +1,15 @@
-import React, { Component } from 'react';
-import { Router, Header } from './Components';
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { getBaseName } from './Utils/Routing';
+import { RoutesAnimator } from './Components';
 
 import './App.css';
 
-const Footer = () => <div className="footer"></div>;
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-  
-  render() {
-    return (
-      <div id="app" className="bg app-container">
-        <Header />
-        <Router />
-        <Footer />
-      </div>
-    );
-  }
-}
-
+const App = props => (
+  <div id="app" className="bg app-container">
+    <BrowserRouter history={props.history} basename={getBaseName()}>
+      <Route component={RoutesAnimator} />
+    </BrowserRouter>
+  </div>
+);
 export default App;

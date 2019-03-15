@@ -21,9 +21,12 @@ export const getShareUrl = (publicId, params, pathname) => {
   )}/videoplayer/${publicId}/${paramsToQueryString(params)}`;
 };
 
-export const getHomeUrl = () => {
-  const url = window.location.href.split("/").slice(0,4).join("/");
-  console.log(url);
-  console.log(url+'/');
+export const getHomeUrl = (pathname) => {
+  const url = `${window.location.href.replace(
+    pathname,
+    ''
+  )}`;
   return url.endsWith('/') ? url : url+'/';
 };
+
+export const getBaseName = ()=>window.location.href.includes('/live') ? '/live' : '/';

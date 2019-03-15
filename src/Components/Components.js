@@ -1,9 +1,12 @@
 import Header from './Header/Header';
+import Footer from './Footer/Footer';
+import PageWrapper from './PageWrapper/PageWrapper';
+import Page from './Page/Page';
 import TextInput from './TextInput/TextInput';
 import LiveIndicator from './LiveIndicator/LiveIndicator';
 import NavButton from './NavButton/NavButton';
-import Page from './Page/Page';
-import Router from './Router/Router';
+import Routes from './Routes/Routes';
+import RoutesAnimator from './RoutesAnimator/RoutesAnimator';
 import ImageUpload from './ImageUpload/ImageUpload';
 import CheckBox from './CheckBox/CheckBox';
 import RadioButton from './RadioButton/RadioButton';
@@ -14,12 +17,16 @@ import Loader from './Loader/Loader';
 import CallToAction from './CallToAction/CallToAction';
 import Share from './Share/Share';
 
+
 export {
     Header,
+    Footer,
+    PageWrapper,
+    Page,
     LiveIndicator,
     NavButton,
-    Page,
-    Router,
+    Routes,
+    RoutesAnimator,
     ImageUpload,
     CheckBox,
     RadioButton,
