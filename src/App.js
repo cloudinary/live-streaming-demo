@@ -5,6 +5,9 @@ import { RoutesAnimator } from './Components';
 
 import './App.css';
 
+/**
+ * App contains a router that switches between pages.
+ */
 const App = props => (
   <div id="app" className="bg app-container">
     <BrowserRouter history={props.history} basename={getBaseName()}>

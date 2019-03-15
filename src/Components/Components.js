@@ -17,7 +17,9 @@ import Loader from './Loader/Loader';
 import CallToAction from './CallToAction/CallToAction';
 import Share from './Share/Share';
 
-
+/**
+ * Provides a convenient way to import components.
+ */
 export {
     Header,
     Footer,
