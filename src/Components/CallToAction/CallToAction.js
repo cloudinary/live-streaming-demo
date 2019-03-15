@@ -2,7 +2,6 @@ import React from 'react';
 import { Icon } from '../Components';
 import { Col, Row } from 'reactstrap';
 
-//const CallToAction = class extends React.Component{
 const CallToAction = props => {
   const { icon, text, topAction, onClick } = props;
   const className = 'call-to-action ' + (topAction ? 'call-to-action-top' : '');

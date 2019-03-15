@@ -21,9 +21,3 @@ const Loader = ({text, absolute}) => {
 };
 
 export default Loader;
-
-/*
-import Loader from 'react-loader-spinner';
-<Loader type="TailSpin" color="white" />
-
-*/

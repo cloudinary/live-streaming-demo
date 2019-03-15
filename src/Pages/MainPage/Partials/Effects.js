@@ -28,17 +28,21 @@ const Effects = props => {
     <Col xs={12} className="text-white">
       <Row>
         <Col xs={12}>
-      <h4>Effects</h4>
-      </Col>
+          <h4>Effects</h4>
+        </Col>
       </Row>
       <Row>
-      <Col xs={9} >
-        <EffectList />
-      </Col>
-      <Col xs={3} ><div className="float-right">{isLogoEnabled(store.effects) ? <UploadWidget /> : null}</div></Col>
+        <Col xs={9}>
+          <EffectList />
+        </Col>
+        <Col xs={3}>
+          <div className="float-right">
+            {isLogoEnabled(store.effects) ? <UploadWidget /> : null}
+          </div>
+        </Col>
       </Row>
       <hr />
-      </Col>
+    </Col>
   );
 };
 

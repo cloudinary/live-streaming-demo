@@ -7,7 +7,6 @@ import LiveIndicator from './LiveIndicator/LiveIndicator';
 import NavButton from './NavButton/NavButton';
 import Routes from './Routes/Routes';
 import RoutesAnimator from './RoutesAnimator/RoutesAnimator';
-import ImageUpload from './ImageUpload/ImageUpload';
 import CheckBox from './CheckBox/CheckBox';
 import RadioButton from './RadioButton/RadioButton';
 import UploadWidget from './UploadWidget/UploadWidget';
@@ -29,7 +28,6 @@ export {
     NavButton,
     Routes,
     RoutesAnimator,
-    ImageUpload,
     CheckBox,
     RadioButton,
     TextInput,
