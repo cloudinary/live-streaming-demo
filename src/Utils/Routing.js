@@ -25,4 +25,4 @@ export const getHomeUrl = (pathname) => {
   return url.endsWith('/') ? url : url+'/';
 };
 
-export const getBaseName = ()=>window.location.href.includes('/live') ? '/live' : '/';
+export const getBaseName = ()=>window.location.href.includes('/react-video-live-demo') ? '/react-video-live-demo' : '/';
