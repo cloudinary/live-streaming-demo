@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/react-video-live-demo/static/media/logo-white.2691e9a9.svg"
   },
   {
-    "revision": "6e732f62cb2e52e0fe62",
+    "revision": "9ab39a7d7e5bf1326653",
     "url": "/react-video-live-demo/static/css/main.73126580.chunk.css"
   },
   {
@@ -20,27 +20,27 @@ self.__precacheManifest = [
     "url": "/react-video-live-demo/static/js/2.c34870d4.chunk.js"
   },
   {
-    "revision": "6e732f62cb2e52e0fe62",
-    "url": "/react-video-live-demo/static/js/main.6e732f62.chunk.js"
+    "revision": "9ab39a7d7e5bf1326653",
+    "url": "/react-video-live-demo/static/js/main.9ab39a7d.chunk.js"
   },
   {
     "revision": "a47393c134c3e33bdbe9f3bff562da1b",
     "url": "/react-video-live-demo/static/media/app-background-small.a47393c1.jpg"
   },
   {
-    "revision": "449319d38f74a82d03ea1ae0f551bcc7",
-    "url": "/react-video-live-demo/static/media/youtube.449319d3.svg"
-  },
-  {
     "revision": "575419bd3cebf76f59109014b7d07b76",
     "url": "/react-video-live-demo/static/media/facebook.575419bd.svg"
+  },
+  {
+    "revision": "449319d38f74a82d03ea1ae0f551bcc7",
+    "url": "/react-video-live-demo/static/media/youtube.449319d3.svg"
   },
   {
     "revision": "c34870d4f6a01a346dcb",
     "url": "/react-video-live-demo/static/css/2.d631316b.chunk.css"
   },
   {
-    "revision": "d9a8c91f084f5917ba05534cadfc39ce",
+    "revision": "0538a18f71b1ec798ef14c3ea961bb2b",
     "url": "/react-video-live-demo/index.html"
   }
 ];

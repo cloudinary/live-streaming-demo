@@ -25,4 +25,5 @@ export const getHomeUrl = (pathname) => {
   return url.endsWith('/') ? url : url+'/';
 };
 
-export const getBaseName = ()=>window.location.href.includes('/react-video-live-demo') ? '/react-video-live-demo' : '/';
+//export const getBaseName = ()=>window.location.href.includes('/react-video-live-demo') ? '/react-video-live-demo' : '/';
+export const getBaseName = ()=>process.env.PUBLIC_URL;
