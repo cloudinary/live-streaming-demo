@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 
 export default ({
   color,
@@ -20,7 +21,9 @@ export default ({
     style.backgroundColor = bgColor;
   }
   return (
-    <Button
+<Col xs="12" className="button-bottom">
+      <Row className="justify-content-center align-items-center">
+      <Button
       style={style}
       color={color || 'primary'}
       className={'navbutton ' + cls}
@@ -34,5 +37,7 @@ export default ({
     >
       {children}
     </Button>
+      </Row>
+    </Col>
   );
 };

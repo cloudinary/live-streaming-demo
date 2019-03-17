@@ -311,10 +311,10 @@ input[type='radio']:checked {
 
 .video-recorder-container-outer {
   padding: 20px;
-  padding-top:0;
+  padding-top: 0;
 }
 
-.relative{
+.relative {
   position: relative;
 }
 
@@ -326,13 +326,24 @@ input[type='radio']:checked {
 
 .cld-video-recorder {
   position: absolute;
-  left:0;
+  left: 0;
   width: 100%;
   padding-top: 0;
 }
 
-.footer{
-  height:50px;
-  width:100%;
-  background-color: rgba(14,47,90);
+.footer {
+  height: 50px;
+  width: 100%;
+  background-color: rgba(14, 47, 90);
+}
+
+.checkbox-flex {
+  display: 'flex';
+  align-items: center;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0;
 }

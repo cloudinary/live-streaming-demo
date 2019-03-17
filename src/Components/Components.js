@@ -13,7 +13,7 @@ import UploadWidget from './UploadWidget/UploadWidget';
 import UploadedImage from './UploadedImage/UploadedImage';
 import Icon from './Icon/Icon';
 import Loader from './Loader/Loader';
-import CallToAction from './CallToAction/CallToAction';
+import IconButton from './IconButton/IconButton';
 import Share from './Share/Share';
 
 /**
@@ -35,6 +35,6 @@ export {
     UploadedImage,
     Icon,
     Loader,
-    CallToAction,
+    IconButton,
     Share
 };

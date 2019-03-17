@@ -1,8 +1,4 @@
-const paramsToQueryString = params => {
-  if (!params || !params.length) {
-    return '';
-  }
-
+const paramsToQueryString = (params=[]) => {
   let result = '?';
   params.forEach((param, i) => {
     result += `${param.name}=${param.value}`;

@@ -16,15 +16,14 @@ const CheckBox = class extends React.Component {
   render() {
     const { name, label, logo, checked } = this.props;
     return (
-      <Fragment>
+      <div className="checkbox-flex">
         <input type="checkbox"
                   name={name}
                   onChange={this.update}
                   checked={checked}
-         />
-            <Icon name={logo}/>
-            <label>{label}</label>
-      </Fragment>
+         />            
+            <label className="checkbox-label"><Icon name={logo}/>{label}</label>
+      </div>
     );
   }
 };
