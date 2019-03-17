@@ -14,7 +14,7 @@ const Url = ({ url }) => {
         </div>
         </div>
       </Col>
-      <Col xs={12} className="center">
+      <Col xs={12} className="text-center">
         <CopyToClipboard text={url} className="mt-20 mb-20">
           <Button>Copy link to clipboard</Button>
         </CopyToClipboard>

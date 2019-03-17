@@ -191,6 +191,13 @@ input[type='radio']:checked {
   left: 0;
 }
 
+.text-bottom {
+  position: absolute !important;
+  bottom: 30px !important;
+  left: 0;
+}
+
+
 .bottom-div {
   height: 100px;
   /*bottom: 0 !important;*/
@@ -198,9 +205,6 @@ input[type='radio']:checked {
   position: relative;
 }
 
-.bottom-text {
-  padding: inherit;
-}
 
 .navbutton {
   border-color: white !important;
@@ -346,4 +350,8 @@ input.social-input::placeholder {
   display: inline-flex;
   align-items: center;
   margin-bottom: 0;
+}
+
+.text-center{
+  text-align: center;
 }

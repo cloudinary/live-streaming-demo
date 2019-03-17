@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Page, Share, Loader } from '../../Components';
+import { Page, Share, Loader, NavButton, Icon } from '../../Components';
 import { Row, Col } from 'reactstrap';
 import { Title, Url, Stream } from './Partials';
 
@@ -26,10 +26,8 @@ const Invite = class extends React.Component {
         <Title />
         <Url url={url} />
         <Share url={url} className="mt-20" />
-        <Col xs="12" className="button-bottom">
-        <Row className="">
+        <Col xs="12" className="text-bottom">
           <p>{error}</p>
-        </Row>
         </Col>
         <Stream {...this.props} />
       </Page>
