@@ -108,7 +108,7 @@ const VideoPlayer = class extends React.Component {
           </Page>
         )}
         <div className="video-container-outer">
-          <div xs={12} className="center relative">
+          <div xs={12} className="center relative video-container">
             <video
               ref={video}
               className="cld-video-player"

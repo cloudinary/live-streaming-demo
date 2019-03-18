@@ -346,3 +346,7 @@ input.social-input::placeholder {
   display: inline-flex;
   align-items: center;
 }
+
+.video-container > div{
+  padding-top: 56.25% !important;
+}
