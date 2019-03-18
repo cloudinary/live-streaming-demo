@@ -204,8 +204,6 @@ input[type='radio']:checked {
 
 .bottom-div {
   height: 100px;
-  /*bottom: 0 !important;*/
-  /*position: absolute !important;*/
   position: relative;
 }
 
@@ -284,12 +282,6 @@ input[type='radio']:checked {
   border-radius: 5px;
 }
 
-/*
-.social-input input::-webkit-input-placeholder, .social-input input::placeholder, .social-input input:-ms-input-placeholder, .social-input input::-ms-input-placeholder{
-    color: grey;
-    opacity: 1;
-}
-*/
 input.social-input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: grey;
@@ -353,11 +345,4 @@ input.social-input::placeholder {
 .checkbox-label {
   display: inline-flex;
   align-items: center;
-  /* margin-bottom: 0; */
 }
-
-/*
-.text-center{
-  text-align: center;
-}
-*/

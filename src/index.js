@@ -5,7 +5,7 @@ import createStore from './Store/createStore';
 
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './style.css';
 
 const store = createStore();
 
