@@ -105,10 +105,10 @@ const VideoPlayer = class extends React.Component {
           </Page>
         )}
         <div className="video-container-outer">
-          <div xs={12} className="center relative video-container">
+          <div xs={12} className="center relative">
             <video
               ref={video}
-              className="cld-video-player"
+              className="cld-video-player vjs-16-9"
               controls
               autoPlay
               playsInline
