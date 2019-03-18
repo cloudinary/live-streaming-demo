@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
+import { Col } from 'reactstrap';
 import { Page, NavButton, LiveIndicator } from '../../Components';
 import { inject, observer } from 'mobx-react';
 
@@ -31,7 +31,7 @@ const VideoRecorderPage = class extends React.Component {
 
   render() {
     const stop = this.stopLiveStream;
-    const { history, values } = this.props;
+    const { history } = this.props;
     const video = this.videoRef;
     return (
       <Page>

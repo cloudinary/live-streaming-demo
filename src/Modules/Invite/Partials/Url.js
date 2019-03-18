@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from 'reactstrap';
+import { Col } from 'reactstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Button } from 'reactstrap';
 import {TextInput} from '../../../Components';

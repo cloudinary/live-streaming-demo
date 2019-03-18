@@ -4,10 +4,6 @@ import { Button } from 'reactstrap';
 import Env from '../../Utils/Env';
 import { UploadedImage } from '../Components';
 
-const Image = ({ url, publicId }) => {
-  return <img src={url} alt="logo"/>;
-};
-
 const UploadWidget = class extends React.Component {
   constructor(props) {
     super(props);

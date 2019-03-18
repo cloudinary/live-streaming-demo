@@ -1,6 +1,6 @@
 export default self => ({
   get uploadedImage() {
-    return self.effects.find(e => e.name == 'logo').value;
+    return self.effects.find(e => e.name === 'logo').value;
   },
   get errorStr() {
     if (!self.error) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Footer } from '../Components';
+import { Header } from '../Components';
 
 export default props => {
   return (

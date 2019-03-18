@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Page, Share, Loader, NavButton, Icon } from '../../Components';
-import { Row, Col } from 'reactstrap';
+import { Col } from 'reactstrap';
+import { Page, Share, Loader } from '../../Components';
 import { Title, Url, Stream } from './Partials';
 
 const Invite = class extends React.Component {

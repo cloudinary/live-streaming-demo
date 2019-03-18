@@ -18,7 +18,7 @@ const EffectList = inject('store')(
 );
 
 const isLogoEnabled = effects => {
-  let e = effects.find(e => e.name == 'logo');
+  let e = effects.find(e => e.name === 'logo');
   return e.enabled;
 };
 

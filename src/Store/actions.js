@@ -58,15 +58,15 @@ export default self => {
   }
 
   function toggleEffect(name) {
-    self.effects.find(e => e.name == name).toggle();
+    self.effects.find(e => e.name === name).toggle();
   }
 
   function setEffectValue(name, value) {
-    self.effects.find(e => e.name == name).setValue(value);
+    self.effects.find(e => e.name === name).setValue(value);
   }
 
   function setUploadedImage(image) {
-    self.effects.find(e => e.name == 'logo').setValue(image);
+    self.effects.find(e => e.name === 'logo').setValue(image);
   }
 
   function delUploadedImage() {

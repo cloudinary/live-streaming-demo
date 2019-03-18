@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
 import { Page, Loader } from '../../Components';
 import { inject, observer } from 'mobx-react';
 import Env from '../../Utils/Env';
@@ -122,29 +121,3 @@ const VideoPlayer = class extends React.Component {
 };
 
 export default inject('store')(observer(VideoPlayer));
-
-/*
-
-
-      <Page>
-        <Row className="justify-content-center align-items-center mg-0">
-        {!playerReady && (
-            <Page absolute>
-              <Loader text="Hang on a second. We’re loading the video stream you requested." />
-            </Page>
-          )}
-          <Col xs={12} className="mt-20 center video-container">
-            <video
-              ref={video}
-              className="cld-video-player"
-              controls
-              autoPlay
-              playsInline
-              muted
-            />
-          </Col>
-        </Row>
-      </Page>
-
-
-*/

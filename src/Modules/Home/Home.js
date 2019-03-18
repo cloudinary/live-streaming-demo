@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, NavButton, Loader } from '../../Components';
+import { Page, NavButton } from '../../Components';
 import { inject, observer } from 'mobx-react';
 import { Title, Effects, Social } from './Partials';
 import './Home.css';
