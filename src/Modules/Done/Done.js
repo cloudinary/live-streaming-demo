@@ -55,7 +55,7 @@ const Done = class extends React.Component {
     const {title, url} = this.props.store;
     return (
       <Page className="text-white">
-        <Col xs={12} className="center h-100">
+        <Col xs={12} className="text-center h-100">
           <h6 className="text-orange pt-10">{title.value}</h6>
           <h6 className="mb-20">Live Stream Ended</h6>
 
@@ -70,13 +70,13 @@ const Done = class extends React.Component {
           <IconButton icon="Videocam" text="New Stream" onClick={this.redirectToMain}/>
           
           <div className="sign-up-container">
-          <Col xs={12} className="center">
+          <Col xs={12}>
           <div className="cloudinary-logo-with-text"></div>
           </Col>
-          <Col xs={12} className="center">
+          <Col xs={12}>
           <div className="mb-10">Read more @ Cloudinary</div>
           
-          <Button id="stop-button" className="button-orange bold" onClick={this.signUp}>SIGN UP FOR FREE</Button>
+          <div><Button id="stop-button" className="button-orange bold" onClick={this.signUp}>SIGN UP FOR FREE</Button></div>
           </Col>   
           </div>
         </Col>

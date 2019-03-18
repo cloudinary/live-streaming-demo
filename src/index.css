@@ -266,7 +266,7 @@ input[type='radio']:checked {
 
 .modal-share {
   background-color: rgb(50, 60, 90) !important;
-  margin-top: 200px;
+  margin-top: 185px;
 }
 
 .spinner-size {
@@ -356,6 +356,8 @@ input.social-input::placeholder {
   /* margin-bottom: 0; */
 }
 
+/*
 .text-center{
   text-align: center;
 }
+*/

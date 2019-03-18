@@ -23,7 +23,6 @@ const VideoRecorderPage = class extends React.Component {
 
   stopLiveStream() {
     this.props.store.stopLiveStream();
-    //this.show call to action
   }
 
   componentDidMount() {
@@ -51,7 +50,6 @@ const VideoRecorderPage = class extends React.Component {
             />
           </div>
         </div>
-        <Col xs={12} className="center button-bottom">
           <NavButton
             cls="stop"
             color="white"
@@ -62,7 +60,6 @@ const VideoRecorderPage = class extends React.Component {
           >
             &#9632;
           </NavButton>
-        </Col>
       </Page>
     );
   }
