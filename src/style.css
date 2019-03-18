@@ -350,3 +350,7 @@ input.social-input::placeholder {
 .video-container > div{
   padding-top: 56.25% !important;
 }
+
+.loader-container{
+  height: 100px;
+}

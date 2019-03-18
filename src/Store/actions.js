@@ -59,7 +59,6 @@ export default self => {
 
   function toggleEffect(name) {
     self.effects.find(e => e.name == name).toggle();
-    console.log('toggled', self.effects.find(e => e.name == name).enabled);
   }
 
   function setEffectValue(name, value) {

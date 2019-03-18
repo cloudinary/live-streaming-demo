@@ -12,7 +12,6 @@ const VideoPlayer = class extends React.Component {
     //this.getSource = this.getSource.bind(this);
     this.transformations = queryString.parse(this.props.location.search);
     this.publicId = this.props.match.params.publicId;
-    console.log(this.publicId);
     this.videoRef = React.createRef();
     this.state = {};
   }
@@ -29,7 +28,6 @@ const VideoPlayer = class extends React.Component {
   componentDidMount() {
     const video = this.videoRef;
     const { publicId, transformations } = this;
-    console.log('publicId:', publicId);
 
     //when player is ready
     const addSource = () => {
@@ -79,7 +77,6 @@ const VideoPlayer = class extends React.Component {
     player.on('error', () => console.log('error'));
 
     player.on('loadedmetadata', () => {
-      console.log('loadedmetadata');
       player.mute();
       player.play();
       this.setState({ playerReady: true });
