@@ -28,7 +28,7 @@ const VideoPlayer = class extends React.Component {
 
   componentDidMount() {
     const video = this.videoRef;
-    const {publicId, transformations} = this;
+    const { publicId, transformations } = this;
     console.log('publicId:', publicId);
 
     //when player is ready
@@ -102,13 +102,13 @@ const VideoPlayer = class extends React.Component {
 
     return (
       <Page>
-        <div className="video-container-outer">
-        <div xs={12} className="center relative">
         {!playerReady && (
-            <Page absolute>
-              <Loader text="Hang on a second. We’re loading the video stream you requested." />
-            </Page>
-          )}
+          <Page absolute>
+            <Loader text="Hang on a second. We’re loading the video stream you requested." />
+          </Page>
+        )}
+        <div className="video-container-outer">
+          <div xs={12} className="center relative">
             <video
               ref={video}
               className="cld-video-player"
@@ -118,7 +118,7 @@ const VideoPlayer = class extends React.Component {
               muted
             />
           </div>
-          </div>
+        </div>
       </Page>
     );
   }
