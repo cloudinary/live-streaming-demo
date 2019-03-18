@@ -1,5 +1,5 @@
 const paramsToQueryString = (params=[]) => {
-  let result = '?';
+  let result = params.length ? '?' : "";
   params.forEach((param, i) => {
     result += `${param.name}=${param.value}`;
     if (i < params.length - 1) {
