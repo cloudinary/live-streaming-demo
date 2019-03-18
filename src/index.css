@@ -110,7 +110,11 @@ hr {
   margin-left: -3px;
 }
 
-.radio-label {
+.label {
+  margin-left: 10px;
+}
+
+.icon{
   margin-left: 10px;
 }
 
@@ -342,14 +346,14 @@ input.social-input::placeholder {
 }
 
 .checkbox-flex {
-  display: 'flex';
+  display: flex;
   align-items: center;
 }
 
 .checkbox-label {
   display: inline-flex;
   align-items: center;
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
 }
 
 .text-center{

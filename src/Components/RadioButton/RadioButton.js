@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
+import { Icon } from '../Components';
+
 
 const RadioButton = class extends React.Component {
   constructor(props) {
@@ -14,8 +16,10 @@ const RadioButton = class extends React.Component {
 
   render() {
     const { name, label, checked } = this.props;
+    let iconName = label === 'None' ? "" : label.toLowerCase();
     return (
-      <Fragment>
+      <div className="checkbox-flex">
+        <label htmlFor={name}  className="checkbox-label">
           <input
             type="radio"
             name={name}
@@ -23,13 +27,10 @@ const RadioButton = class extends React.Component {
             checked={checked}
             value={name}
           />
-            <label htmlFor={name} className="radio-label">
-              
-              <span className={`icon ${name}-icon`} />
-              {label}
-
-            </label>
-      </Fragment>
+          <Icon name={iconName} text={label} fontAwesome={!!iconName}/>
+          <span className="label">{label}</span>
+        </label>
+      </div>
     );
   }
 };

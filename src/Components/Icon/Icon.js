@@ -6,6 +6,8 @@ import BlurOn from '@material-ui/icons/BlurOn';
 import Videocam from '@material-ui/icons/Videocam';
 import Share from '@material-ui/icons/Share';
 import PlayCircleOutline from '@material-ui/icons/PlayCircleOutline';
+import 'font-awesome/css/font-awesome.min.css';
+
 
 const icons = {
   CloudUpload,
@@ -17,10 +19,15 @@ const icons = {
   PlayCircleOutline
 };
 
-const Icon = ({ className, name }) => {
-    console.log("tag name:", name);
+const Icon = ({ className='svg-icons', name="", fontAwesome=false }) => {
+  if (fontAwesome){
+    return (<i className={"icon fa fa-"+name}></i>);
+  }
   const Tag = icons[name];
-  return <Tag className={className || 'svg-icons'} />;
+  if (Tag){
+  return (<Tag className={className} />);
+  }
+  return null;
 };
 
 export default Icon;

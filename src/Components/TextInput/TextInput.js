@@ -1,6 +1,5 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Input } from 'reactstrap';
 
 const TextInput = class extends React.Component {
   constructor(props) {

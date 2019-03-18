@@ -12,6 +12,7 @@
     "cloudinary-live-stream": "^1.0.0-beta.0",
     "cloudinary-react": "^1.1.0",
     "cloudinary-video-player": "^1.1.1",
+    "font-awesome": "^4.7.0",
     "formik": "^1.5.1",
     "lodash": "^4.17.11",
     "mobx": "^5.9.0",

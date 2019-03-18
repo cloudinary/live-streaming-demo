@@ -12,17 +12,22 @@ const CheckBox = class extends React.Component {
     const { store, action, name } = this.props;
     store[action](name);
   }
-
+  
   render() {
     const { name, label, logo, checked } = this.props;
     return (
       <div className="checkbox-flex">
-        <input type="checkbox"
-                  name={name}
-                  onChange={this.update}
-                  checked={checked}
-         />            
-            <label className="checkbox-label"><Icon name={logo}/>{label}</label>
+        <label htmlFor={name} className="checkbox-label">
+          <input
+            id={name}
+            type="checkbox"
+            name={name}
+            onChange={this.update}
+            checked={checked}
+          />
+          <Icon name={logo} />
+          {label}
+        </label>
       </div>
     );
   }
