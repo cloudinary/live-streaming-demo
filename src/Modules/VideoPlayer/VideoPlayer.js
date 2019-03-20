@@ -22,15 +22,14 @@ const VideoPlayer = class extends React.Component {
     this.videoRef = React.createRef();
   }
 
-  handleError(){
-    this.addSource(false);
+  handleError() {
+    this.addSource(false, this.videoRef.current.currentTime);
     this.handlingError = false;
   }
 
   //when player is ready
-  addSource(play=true){
+  addSource(play = true, currentTime) {
     const {player, publicId, transformations, videoRef} = this;
-    let currentTime = videoRef.current.currentTime;
     this.player = player
       .source(publicId, {
         sourceTypes: ['hls'],
@@ -38,7 +37,7 @@ const VideoPlayer = class extends React.Component {
         type: Env.UPLOAD_TYPE,
         raw_transformation: transformationRaw(transformations)
       });
-    if (play){
+    if (play) {
       player.play();
     }
     videoRef.current.currentTime = currentTime;
@@ -104,28 +103,27 @@ const VideoPlayer = class extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {player, addSource} = this;
+    const {player} = this;
     if (player) {
       player.mute();
       player.play();
     }
-
-    if (this.state.error){
-      addSource();
-      //player.play();
-      /*
-      const intervalId = setInterval(() => {
-        if (!this.state.playerReady) {
+    /*
+        if (this.state.error){
           addSource();
-        } else {
-          clearInterval(this.state.intervalId);
-          player.mute();
-        }
-      }, 1000);
-      this.setState({intervalId: intervalId});
-      */
-    }
+          //player.play();
+          const intervalId = setInterval(() => {
+            if (!this.state.playerReady) {
+              addSource();
+            } else {
+              clearInterval(this.state.intervalId);
+              player.mute();
+            }
+          }, 1000);
+          this.setState({intervalId: intervalId});
+          */
   }
+
 
   render() {
     const video = this.videoRef;
@@ -156,4 +154,5 @@ const VideoPlayer = class extends React.Component {
     );
   }
 };
+
 export default VideoPlayer;
