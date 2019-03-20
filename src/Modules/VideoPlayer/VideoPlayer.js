@@ -1,9 +1,13 @@
 import React from 'react';
-import { Page, Loader } from '../../Components';
-import { inject, observer } from 'mobx-react';
+import {Page, Loader} from '../../Components';
 import Env from '../../Utils/Env';
 import queryString from 'query-string';
-import { transformationRaw } from '../../Utils/Transformations';
+import {transformationRaw} from '../../Utils/Transformations';
+
+//create Cloudinary object
+const cld = window.cloudinary.Cloudinary.new({
+  cloud_name: Env.CLOUD_NAME
+});
 
 const VideoPlayer = class extends React.Component {
   constructor(props) {
@@ -11,46 +15,31 @@ const VideoPlayer = class extends React.Component {
     //this.getSource = this.getSource.bind(this);
     this.transformations = queryString.parse(this.props.location.search);
     this.publicId = this.props.match.params.publicId;
-    this.videoRef = React.createRef();
     this.state = {};
+    this.player = null;
   }
-
-  /*
-  getSource(type) {
-    const publicId = 'x_0/' + this.props.match.params.publicId;
-    return `https://res.cloudinary.com/${
-      Env.CLOUD_NAME
-    }/video/upload/${publicId}.${type}`;
-  }
-  */
 
   componentDidMount() {
-    const video = this.videoRef;
-    const { publicId, transformations } = this;
-
+    const {publicId, transformations} = this;
     //when player is ready
     const addSource = () => {
-      return player.source(publicId, {
-        sourceTypes: ['hls'],
-        format: 'm3u8',
-        type: Env.UPLOAD_TYPE,
-        raw_transformation: transformationRaw(transformations)
-      });
+      player
+        .source(publicId, {
+          sourceTypes: ['hls'],
+          format: 'm3u8',
+          type: Env.UPLOAD_TYPE,
+          raw_transformation: transformationRaw(transformations)
+        }).play();
     };
 
-    //create Cloudinary object
-    const cld = window.cloudinary.Cloudinary.new({
-      cloud_name: Env.CLOUD_NAME
-    });
-
     //create player
-    const player = cld.videoPlayer(
-      video.current,
+    const player = this.player = cld.videoPlayer(
+      'video-player', //video.current,
       {
         fluid: true,
         videojs: {
           html5: {
-            hls: { overrideNative: true },
+            hls: {overrideNative: true},
             nativeAudioTracks: false,
             nativeVideoTracks: false
           }
@@ -69,46 +58,52 @@ const VideoPlayer = class extends React.Component {
         }
       },
       () => {
-        addSource();
+        addSource(player, publicId, transformations);
       }
     );
 
-    player.on('error', () => console.log('error'));
+    player.on('error', () => console.log('video player error'));
 
     player.on('loadedmetadata', () => {
-      player.mute();
-      player.play();
-      this.setState({ playerReady: true });
+      this.setState({playerReady: true});
     });
 
     const intervalId = setInterval(() => {
       if (!this.state.playerReady) {
-        addSource();
+        addSource(player, publicId, transformations);
       } else {
         clearInterval(this.state.intervalId);
         player.mute();
       }
     }, 1000);
-    this.setState({ intervalId: intervalId });
+    this.setState({intervalId: intervalId});
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {player} = this;
+    if (player) {
+      player.mute();
+      player.play();
+    }
   }
 
   render() {
-    const video = this.videoRef;
     const playerReady = this.state.playerReady;
-
+    const className =
+      'cld-video-player vjs-16-9 ' + playerReady ? 'visible' : 'hidden';
     return (
       <Page>
         {!playerReady && (
           <Page absolute>
-            <Loader text="Hang on a second. We’re loading the video stream you requested." />
+            <Loader text="Hang on a second. We’re loading the video stream you requested."/>
           </Page>
         )}
         <div className="video-container-outer">
-          <div xs={12} className="center relative">
+          <div className="center relative">
             <video
-              ref={video}
-              className="cld-video-player vjs-16-9"
-              controls
+              id="video-player"
+              className={className}
+              controls={playerReady}
               autoPlay
               playsInline
               muted
@@ -119,5 +114,4 @@ const VideoPlayer = class extends React.Component {
     );
   }
 };
-
-export default inject('store')(observer(VideoPlayer));
+export default VideoPlayer;

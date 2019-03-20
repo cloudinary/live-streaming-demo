@@ -9,11 +9,10 @@ export default ({ className = '', children, absolute }) => {
     return (
       <Row
         noGutters
-        className="h-100"
+        className="h-100 w-100"
         style={{
           position: 'absolute',
-          boxSizing: 'content-box',
-          width: '110%'
+          boxSizing: 'content-box'
         }}
       >
         <Col xs={12} className="w-100 h-100" style={{ padding: 0, margin: 0 }}>
@@ -27,7 +26,6 @@ export default ({ className = '', children, absolute }) => {
     <Row
       noGutters
       className={'height-full ' + className}
-      style={absolute ? { position: 'absolute' } : {}}
     >
       <Col
         md={10}

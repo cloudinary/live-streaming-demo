@@ -1,6 +1,7 @@
 import store from './store';
 export default () =>
   store.create({
+    liveStreamStatus: 'none',
     title: { placeholder: 'My live video', value: 'My live video' },
     effects: [
       {

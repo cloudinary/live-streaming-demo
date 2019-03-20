@@ -32,7 +32,9 @@ export default ({
         if (doBefore) {
           doBefore();
         }
+        if (to){
         history.push(to);
+        }
       }}
     >
       {children}

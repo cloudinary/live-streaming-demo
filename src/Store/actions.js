@@ -17,18 +17,17 @@ export default self => {
         : UPLOAD_PRESET,
       debug: 'all',
       events: {
-        /*
-          Optional events, not needed for the demo
         start: function(args) {
-          console.log('start', args);
+          //console.log('start', args);
+          self.setLiveStreamStatus('start');
         },
         stop: function(args) {
-          console.log('stop', args);
+          //console.log('stop', args);
+          self.setLiveStreamStatus('stop');
         },
         error: function(error) {
-          console.log('error', error);
+          //console.log('error', error);
         },
-        */
         local_stream: function(stream) {
           //attaching the stream to a video view:
           liveStream.attach(self.videoRef, stream);
@@ -36,6 +35,10 @@ export default self => {
       }
     });
   };
+
+  function setLiveStreamStatus(status){
+    self.liveStreamStatus = status;
+  }
 
   function afterCreate() {
     initialSnapshot = getSnapshot(self);
@@ -142,10 +145,12 @@ export default self => {
   function stopLiveStream() {
     if (liveStream) {
       liveStream.stop();
+      self.setLiveStreamStatus('stopping');
     }
   }
 
   return {
+    setLiveStreamStatus,
     afterCreate,
     resetStore,
     setStartedAtMainPage,

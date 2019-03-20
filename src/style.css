@@ -248,17 +248,16 @@ input[type='radio']:checked {
 
 .call-to-action:hover {
   border-bottom: #8c8c8c 1px solid;
-  background-color: rgb(50, 60, 90, 0.6);
+  background-color: rgba(50, 60, 90, 0.6);
 }
 
 .sign-up-container {
   width: 100%;
   position: absolute;
   bottom: 0px;
-  background-color: rgb(50, 60, 90, 0.6);
-  right: 0px;
-  padding: 40px;
-  padding-bottom: 50px;
+  background-color: rgba(50, 60, 90, 0.6);
+  right: 0;
+  padding: 40px 40px 50px;
   font-size: 0.8rem;
 }
 
@@ -278,7 +277,7 @@ input[type='radio']:checked {
   grid-template-rows: 30px auto;
   padding: 5px;
   padding-bottom: 0;
-  background-color: rgb(70, 80, 100, 0.6);
+  background-color: rgba(70, 80, 100, 0.6);
   border-radius: 5px;
 }
 
@@ -328,13 +327,14 @@ input.social-input::placeholder {
   position: absolute;
   left: 0;
   width: 100%;
-  padding-top: 0;
+  padding-top: 0 !important;
 }
+
 
 .footer {
   height: 50px;
   width: 100%;
-  background-color: rgba(14, 47, 90);
+  background-color: rgb(14, 47, 90);
 }
 
 .checkbox-flex {
@@ -349,4 +349,8 @@ input.social-input::placeholder {
 
 .loader-container{
   height: 100px;
+}
+
+.hidden{
+  visibility: hidden;
 }

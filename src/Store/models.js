@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import {types} from 'mobx-state-tree';
 
 const Input = types.model({
   value: types.optional(types.string, ''),
@@ -30,27 +30,28 @@ const Option = types
     get checkbox() {
       return Object.assign(
         {},
-        { ...self, checked: self.enabled, action: 'toggleEffect' }
+        {...self, checked: self.enabled, action: 'toggleEffect'}
       );
     },
     get radio() {
       return Object.assign(
         {},
-        { ...self, checked: self.enabled, action: 'toggleSocial' }
+        {...self, checked: self.enabled, action: 'toggleSocial'}
       );
     }
   }));
 
-  const MainStore = {
-    startedAtMainPage: types.optional(types.boolean, false),
-    needRestart: types.optional(types.boolean, false),
-    title: types.maybe(Input),
-    effects: types.array(Option),
-    socials: types.array(Option),
-    videoRef: types.maybe(types.frozen({})),
-    url: types.maybe(types.string),
-    publicId: types.maybe(types.string),
-    error: types.maybe(types.frozen({})),
-    loading: types.optional(types.boolean, true)
-  }
-export { MainStore };
+const MainStore = {
+  liveStreamStatus: types.optional(types.string, 'none'),
+  startedAtMainPage: types.optional(types.boolean, false),
+  needRestart: types.optional(types.boolean, false),
+  title: types.maybe(Input),
+  effects: types.array(Option),
+  socials: types.array(Option),
+  videoRef: types.maybe(types.frozen({})),
+  url: types.maybe(types.string),
+  publicId: types.maybe(types.string),
+  error: types.maybe(types.frozen({})),
+  loading: types.optional(types.boolean, true)
+};
+export {MainStore};
