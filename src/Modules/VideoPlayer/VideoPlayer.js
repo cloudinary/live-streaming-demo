@@ -12,26 +12,40 @@ const cld = window.cloudinary.Cloudinary.new({
 const VideoPlayer = class extends React.Component {
   constructor(props) {
     super(props);
-    //this.getSource = this.getSource.bind(this);
     this.transformations = queryString.parse(this.props.location.search);
     this.publicId = this.props.match.params.publicId;
     this.state = {};
     this.player = null;
+    this.handlingError = false;
+    this.handleError = this.handleError.bind(this);
+    this.addSource = this.addSource.bind(this);
+    this.videoRef = React.createRef();
   }
 
-  componentDidMount() {
-    const {publicId, transformations} = this;
-    //when player is ready
-    const addSource = () => {
-      player
-        .source(publicId, {
-          sourceTypes: ['hls'],
-          format: 'm3u8',
-          type: Env.UPLOAD_TYPE,
-          raw_transformation: transformationRaw(transformations)
-        }).play();
-    };
+  handleError(){
+    this.addSource(false);
+    this.handlingError = false;
+  }
 
+  //when player is ready
+  addSource(play=true){
+    const {player, publicId, transformations, videoRef} = this;
+    let currentTime = videoRef.current.currentTime;
+    this.player = player
+      .source(publicId, {
+        sourceTypes: ['hls'],
+        format: 'm3u8',
+        type: Env.UPLOAD_TYPE,
+        raw_transformation: transformationRaw(transformations)
+      });
+    if (play){
+      player.play();
+    }
+    videoRef.current.currentTime = currentTime;
+  };
+
+  componentDidMount() {
+    const {addSource, handlingError, handleError} = this;
     //create player
     const player = this.player = cld.videoPlayer(
       'video-player', //video.current,
@@ -42,7 +56,8 @@ const VideoPlayer = class extends React.Component {
             hls: {overrideNative: true},
             nativeAudioTracks: false,
             nativeVideoTracks: false
-          }
+          },
+          loadingSpinner: false
         },
         /**
          * To enable Google Analytics uncomment this code
@@ -58,19 +73,24 @@ const VideoPlayer = class extends React.Component {
         }
       },
       () => {
-        addSource(player, publicId, transformations);
+        addSource();
       }
     );
 
-    player.on('error', () => console.log('video player error'));
+    player.on('error', () => {
+      if (!handlingError) {
+        this.timeoutId = setTimeout(handleError, 1000);
+      }
+    });
 
     player.on('loadedmetadata', () => {
+      console.log(JSON.stringify(player));
       this.setState({playerReady: true});
     });
 
     const intervalId = setInterval(() => {
       if (!this.state.playerReady) {
-        addSource(player, publicId, transformations);
+        addSource();
       } else {
         clearInterval(this.state.intervalId);
         player.mute();
@@ -79,18 +99,40 @@ const VideoPlayer = class extends React.Component {
     this.setState({intervalId: intervalId});
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId);
+    clearInterval(this.state.intervalId);
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {player} = this;
+    const {player, addSource} = this;
     if (player) {
       player.mute();
       player.play();
     }
+
+    if (this.state.error){
+      addSource();
+      //player.play();
+      /*
+      const intervalId = setInterval(() => {
+        if (!this.state.playerReady) {
+          addSource();
+        } else {
+          clearInterval(this.state.intervalId);
+          player.mute();
+        }
+      }, 1000);
+      this.setState({intervalId: intervalId});
+      */
+    }
   }
 
   render() {
+    const video = this.videoRef;
     const playerReady = this.state.playerReady;
     const className =
-      'cld-video-player vjs-16-9 ' + playerReady ? 'visible' : 'hidden';
+      'cld-video-player vjs-16-9 ' + playerReady ? '' : 'hidden';
     return (
       <Page>
         {!playerReady && (
@@ -101,6 +143,7 @@ const VideoPlayer = class extends React.Component {
         <div className="video-container-outer">
           <div className="center relative">
             <video
+              ref={video}
               id="video-player"
               className={className}
               controls={playerReady}
