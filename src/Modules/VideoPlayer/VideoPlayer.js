@@ -23,7 +23,7 @@ const VideoPlayer = class extends React.Component {
   }
 
   handleError() {
-    this.addSource(false, this.videoRef.current.currentTime);
+    this.addSource();
     this.handlingError = false;
   }
 
@@ -40,7 +40,9 @@ const VideoPlayer = class extends React.Component {
     if (play) {
       player.play();
     }
-    videoRef.current.currentTime = currentTime;
+    if (currentTime) {
+      videoRef.current.currentTime = currentTime;
+    }
   };
 
   componentDidMount() {
