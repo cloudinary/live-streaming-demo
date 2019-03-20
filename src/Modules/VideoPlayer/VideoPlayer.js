@@ -84,7 +84,6 @@ const VideoPlayer = class extends React.Component {
     });
 
     player.on('loadedmetadata', () => {
-      console.log(JSON.stringify(player));
       this.setState({playerReady: true});
     });
 
