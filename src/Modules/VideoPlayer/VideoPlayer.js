@@ -74,7 +74,15 @@ const VideoPlayer = class extends React.Component {
         }
       },
       () => {
-        addSource();
+        const intervalId = setInterval(() => {
+          if (!this.state.playerReady) {
+            addSource();
+          } else {
+            clearInterval(this.state.intervalId);
+            player.mute();
+          }
+        }, 1000);
+        this.setState({intervalId: intervalId});
       }
     );
 
@@ -87,16 +95,6 @@ const VideoPlayer = class extends React.Component {
     player.on('loadedmetadata', () => {
       this.setState({playerReady: true});
     });
-
-    const intervalId = setInterval(() => {
-      if (!this.state.playerReady) {
-        addSource();
-      } else {
-        clearInterval(this.state.intervalId);
-        player.mute();
-      }
-    }, 1000);
-    this.setState({intervalId: intervalId});
   }
 
   componentWillUnmount() {
