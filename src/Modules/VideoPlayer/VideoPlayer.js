@@ -19,12 +19,38 @@ const VideoPlayer = class extends React.Component {
     this.handlingError = false;
     this.handleError = this.handleError.bind(this);
     this.addSource = this.addSource.bind(this);
+    this.reloadIfStuck = this.reloadIfStuck.bind(this);
+    this.pause = this.pause.bind(this);
+    this.play = this.play.bind(this);
     this.videoRef = React.createRef();
   }
 
   handleError() {
     this.addSource();
     this.handlingError = false;
+  }
+
+  pause(){
+    this.paused = true;
+  }
+
+  play(){
+    this.paused = false;
+  }
+
+  /**
+   * Handles a situation where player looks like it's loading
+   * but actually not, so we force a reload by adding a new source.
+   */
+  reloadIfStuck(){
+    const {paused} = this;
+    const videoData = this.player.videojs.cache_;
+    const {currentTime, duration} = videoData;
+    const videoState = `${currentTime}/${duration}`;
+    if (!paused && this.prevVideoState && this.prevVideoState === videoState){
+        this.addSource(true, currentTime);
+    }
+    this.prevVideoState = videoState;
   }
 
   //when player is ready
@@ -38,7 +64,8 @@ const VideoPlayer = class extends React.Component {
         raw_transformation: transformationRaw(transformations)
       });
     if (play) {
-      player.play();
+      player.videojs.load();
+      //player.play();
     }
     if (currentTime) {
       videoRef.current.currentTime = currentTime;
@@ -46,7 +73,7 @@ const VideoPlayer = class extends React.Component {
   };
 
   componentDidMount() {
-    const {addSource, handlingError, handleError} = this;
+    const {addSource, reloadIfStuck, play, pause, handlingError, handleError} = this;
     //create player
     const player = this.player = cld.videoPlayer(
       'video-player', //video.current,
@@ -78,13 +105,18 @@ const VideoPlayer = class extends React.Component {
           if (!this.state.playerReady) {
             addSource();
           } else {
-            clearInterval(this.state.intervalId);
-            player.mute();
+            reloadIfStuck();
           }
         }, 1000);
         this.setState({intervalId: intervalId});
       }
     );
+
+    player.on('pause', pause);
+
+    player.on('play', play);
+
+
 
     player.on('error', () => {
       if (!handlingError) {
