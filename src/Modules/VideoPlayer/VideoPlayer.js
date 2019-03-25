@@ -3,6 +3,7 @@ import {Page, Loader} from '../../Components';
 import Env from '../../Utils/Env';
 import queryString from 'query-string';
 import {transformationRaw} from '../../Utils/Transformations';
+
 window.ga('send', 'pageview');
 
 //create Cloudinary object
@@ -17,56 +18,55 @@ const VideoPlayer = class extends React.Component {
     this.publicId = this.props.match.params.publicId;
     this.state = {};
     this.player = null;
-    this.handlingError = false;
-    this.handleError = this.handleError.bind(this);
+    this.waiting = false;
+    this.ended = false;
+    this.videoRef = React.createRef();
     this.addSource = this.addSource.bind(this);
     this.reloadIfStalled = this.reloadIfStalled.bind(this);
     this.pause = this.pause.bind(this);
     this.play = this.play.bind(this);
     this.end = this.end.bind(this);
-    this.ended = false;
-    this.videoRef = React.createRef();
+    this.wait = this.wait.bind(this);
+    this.loadedData = this.loadedData.bind(this);
   }
 
-  handleError() {
-    if (!this.ended) {
-      this.addSource();
-      this.handlingError = false;
-    }
-  }
-
-  pause(){
+  pause() {
     this.paused = true;
+    this.waiting = false;
   }
 
-  play(){
+  play() {
     this.paused = false;
+    this.waiting = false;
   }
 
-  end(){
+  end() {
     this.ended = true;
+    this.waiting = false;
+  }
+
+  wait() {
+    this.waiting = true;
+  }
+
+  loadedData() {
+    this.waiting = false;
   }
 
   /**
    * Handles a situation where player looks like it's loading
    * but actually not, so we force a reload by adding a new source.
    */
-  reloadIfStalled(){
-    const {paused, ended} = this;
-    if (!ended) {
-      const videoData = this.player.videojs.cache_;
-      const {currentTime, duration} = videoData;
-      const videoState = `${currentTime}/${duration}`;
-      const isStalled = (!paused && this.prevVideoState && this.prevVideoState === videoState);
-      if  (isStalled){
-        this.addSource(true, currentTime);
-      }
-      this.prevVideoState = videoState;
+  reloadIfStalled() {
+    const {waiting, paused, ended, videoRef} = this;
+    const {currentTime, duration} = videoRef.current;
+    if (!paused && waiting && !(ended && currentTime === duration)) {
+      this.addSource(videoRef.current.currentTime);
     }
   }
 
-  //when player is ready
-  addSource(play = true, currentTime) {
+  addSource(currentTime) {
+    this.waiting = false;
     const {player, publicId, transformations, videoRef} = this;
     this.player = player
       .source(publicId, {
@@ -75,18 +75,14 @@ const VideoPlayer = class extends React.Component {
         type: Env.UPLOAD_TYPE,
         raw_transformation: transformationRaw(transformations)
       });
-    if (play) {
-      player.videojs.load();
-      //player.play();
-    }
+    this.player.videojs.load();
     if (currentTime) {
       videoRef.current.currentTime = currentTime;
     }
   };
 
   componentDidMount() {
-    const {addSource, reloadIfStalled, play, pause,end, handlingError, handleError} = this;
-    //create player
+    const {addSource, reloadIfStalled, play, pause, wait, loadedData, end} = this;
     const player = this.player = cld.videoPlayer(
       'video-player', //video.current,
       {
@@ -99,10 +95,6 @@ const VideoPlayer = class extends React.Component {
           },
           loadingSpinner: false
         },
-        /**
-         * To enable Google Analytics uncomment this code
-         * and include the Google Analytics code snippet in your page
-         */
         analytics: {
           events: ['play', 'pause', 'ended', {type: 'percentsplayed', percents: [10, 40, 70, 90]}, 'error']
         },
@@ -128,11 +120,10 @@ const VideoPlayer = class extends React.Component {
 
     player.on('ended', end);
 
-    player.on('error', () => {
-      if (!handlingError) {
-        this.timeoutId = setTimeout(handleError, 2000);
-      }
-    });
+    player.on('waiting', wait);
+
+    player.on('loadeddata', loadedData);
+
 
     player.on('loadedmetadata', () => {
       this.setState({playerReady: true});
