@@ -12,6 +12,7 @@ export default self => {
   const getLiveStreamInitOptions = () => {
     return Object.assign({}, self.targets, {
       cloudName: CLOUD_NAME,
+
       uploadPreset: self.transformations.find(t => t.name === 'intro')
         ? UPLOAD_PRESET_OPENER
         : UPLOAD_PRESET,
