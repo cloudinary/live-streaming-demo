@@ -33,7 +33,8 @@ const VideoRecorderPage = class extends React.Component {
         const stop = this.stopLiveStream;
         const {history, store} = this.props;
         const started = (store.liveStreamStatus === 'start');
-        console.log('status: ', store.liveStreamStatus);
+        const {error} = store;
+        console.log('recorder status: ',store.liveStreamStatus);
         const video = this.videoRef;
         return (
             <Page>
@@ -41,6 +42,11 @@ const VideoRecorderPage = class extends React.Component {
                     <Page absolute className="text-center">
                         <Loader text="Hang on a second. We’re starting the video stream."/>
                     </Page>
+                )}
+                {error && (
+                  <Page absolute className="text-center">
+                      <p>error</p>
+                  </Page>
                 )}
                 <Col xs={12} className="center text-center">
                     <LiveIndicator/>
