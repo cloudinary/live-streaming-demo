@@ -3,6 +3,7 @@ import { Page, NavButton } from '../../Components';
 import { inject, observer } from 'mobx-react';
 import { Title, Effects, Social } from './Partials';
 import './Home.css';
+window.ga('send', 'pageview');
 
 const Home = class extends React.Component {
   componentDidMount() {

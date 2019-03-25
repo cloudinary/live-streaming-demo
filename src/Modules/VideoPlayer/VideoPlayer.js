@@ -3,6 +3,7 @@ import {Page, Loader} from '../../Components';
 import Env from '../../Utils/Env';
 import queryString from 'query-string';
 import {transformationRaw} from '../../Utils/Transformations';
+window.ga('send', 'pageview');
 
 //create Cloudinary object
 const cld = window.cloudinary.Cloudinary.new({
@@ -19,15 +20,19 @@ const VideoPlayer = class extends React.Component {
     this.handlingError = false;
     this.handleError = this.handleError.bind(this);
     this.addSource = this.addSource.bind(this);
-    this.reloadIfStuck = this.reloadIfStuck.bind(this);
+    this.reloadIfStalled = this.reloadIfStalled.bind(this);
     this.pause = this.pause.bind(this);
     this.play = this.play.bind(this);
+    this.end = this.end.bind(this);
+    this.ended = false;
     this.videoRef = React.createRef();
   }
 
   handleError() {
-    this.addSource();
-    this.handlingError = false;
+    if (!this.ended) {
+      this.addSource();
+      this.handlingError = false;
+    }
   }
 
   pause(){
@@ -38,19 +43,26 @@ const VideoPlayer = class extends React.Component {
     this.paused = false;
   }
 
+  end(){
+    this.ended = true;
+  }
+
   /**
    * Handles a situation where player looks like it's loading
    * but actually not, so we force a reload by adding a new source.
    */
-  reloadIfStuck(){
-    const {paused} = this;
-    const videoData = this.player.videojs.cache_;
-    const {currentTime, duration} = videoData;
-    const videoState = `${currentTime}/${duration}`;
-    if (!paused && this.prevVideoState && this.prevVideoState === videoState){
+  reloadIfStalled(){
+    const {paused, ended} = this;
+    if (!ended) {
+      const videoData = this.player.videojs.cache_;
+      const {currentTime, duration} = videoData;
+      const videoState = `${currentTime}/${duration}`;
+      const isStalled = (!paused && this.prevVideoState && this.prevVideoState === videoState);
+      if  (isStalled){
         this.addSource(true, currentTime);
+      }
+      this.prevVideoState = videoState;
     }
-    this.prevVideoState = videoState;
   }
 
   //when player is ready
@@ -73,7 +85,7 @@ const VideoPlayer = class extends React.Component {
   };
 
   componentDidMount() {
-    const {addSource, reloadIfStuck, play, pause, handlingError, handleError} = this;
+    const {addSource, reloadIfStalled, play, pause,end, handlingError, handleError} = this;
     //create player
     const player = this.player = cld.videoPlayer(
       'video-player', //video.current,
@@ -90,12 +102,10 @@ const VideoPlayer = class extends React.Component {
         /**
          * To enable Google Analytics uncomment this code
          * and include the Google Analytics code snippet in your page
-         *
-         * analytics: {
-         *  events: ['play', 'pause', 'ended', { type: 'percentsplayed', percents: [10, 40, 70, 90] }, 'error']
-         * },
          */
-
+        analytics: {
+          events: ['play', 'pause', 'ended', {type: 'percentsplayed', percents: [10, 40, 70, 90]}, 'error']
+        },
         posterOptions: {
           publicId: 'live-video-streaming'
         }
@@ -105,7 +115,7 @@ const VideoPlayer = class extends React.Component {
           if (!this.state.playerReady) {
             addSource();
           } else {
-            reloadIfStuck();
+            reloadIfStalled();
           }
         }, 1000);
         this.setState({intervalId: intervalId});
@@ -116,11 +126,11 @@ const VideoPlayer = class extends React.Component {
 
     player.on('play', play);
 
-
+    player.on('ended', end);
 
     player.on('error', () => {
       if (!handlingError) {
-        this.timeoutId = setTimeout(handleError, 1000);
+        this.timeoutId = setTimeout(handleError, 2000);
       }
     });
 
@@ -135,25 +145,12 @@ const VideoPlayer = class extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {player} = this;
-    if (player) {
+    const {ended, player} = this;
+
+    if (!ended && player) {
       player.mute();
       player.play();
     }
-    /*
-        if (this.state.error){
-          addSource();
-          //player.play();
-          const intervalId = setInterval(() => {
-            if (!this.state.playerReady) {
-              addSource();
-            } else {
-              clearInterval(this.state.intervalId);
-              player.mute();
-            }
-          }, 1000);
-          this.setState({intervalId: intervalId});
-          */
   }
 
 
