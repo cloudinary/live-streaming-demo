@@ -39,6 +39,11 @@ const VideoPlayer = class extends React.Component {
   }
 
   play() {
+    //we don't need to reload the source again
+    if (this.ended){
+      clearInterval(this.state.intervalId);
+    }
+
     this.paused = false;
     this.waiting = false;
   }
@@ -148,20 +153,8 @@ const VideoPlayer = class extends React.Component {
     clearInterval(this.state.intervalId);
   }
 
-  /*
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const {ended, player} = this;
-
-    if (!ended && player) {
-      player.mute();
-      player.play();
-    }
-  }
-  */
-
-
   render() {
-    const {video} = this;
+    const {videoRef} = this;
     const {playerReady} = this.state;
     const {isMobile} = this.props;
     const outerContainerClassName = "video-container-outer " + playerReady ? "" : "hidden";
@@ -176,7 +169,7 @@ const VideoPlayer = class extends React.Component {
         <div className={outerContainerClassName}>
           <div className={innerContainerClassName}>
             <video
-              ref={video}
+              ref={videoRef}
               id="video-player"
               className="cld-video-player vjs-16-9"
               controls={!!playerReady}
