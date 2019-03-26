@@ -18,11 +18,9 @@ export default self => {
       debug: 'all',
       events: {
         start: function(args) {
-          //console.log('start', args);
           self.setLiveStreamStatus('start');
         },
         stop: function(args) {
-          //console.log('stop', args);
           self.setLiveStreamStatus('stop');
         },
         error: function(error) {

@@ -33,25 +33,34 @@ const VideoPlayer = class extends React.Component {
   }
 
   pause() {
+    console.log('pause');
     this.paused = true;
     this.waiting = false;
   }
 
   play() {
+    console.log('play');
     this.paused = false;
     this.waiting = false;
   }
 
   end() {
+    console.log('end');
     this.ended = true;
     this.waiting = false;
   }
 
   wait() {
+    console.log('wait');
     this.waiting = true;
   }
 
-  loadedData() {
+  loadedData(){
+    console.log('loadeddata');
+    if (this.currentTime) {
+      this.player.currentTime(this.currentTime)
+      this.player.play();
+    }
     this.waiting = false;
   }
 
@@ -81,7 +90,11 @@ const VideoPlayer = class extends React.Component {
       });
     this.player.videojs.load();
     if (currentTime) {
-      videoRef.current.currentTime = currentTime;
+      //videoRef.current.currentTime = currentTime;
+      this.currentTime = currentTime;
+    }
+    else{
+      player.mute();
     }
   };
 
@@ -139,6 +152,7 @@ const VideoPlayer = class extends React.Component {
     clearInterval(this.state.intervalId);
   }
 
+  /*
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {ended, player} = this;
 
@@ -147,13 +161,13 @@ const VideoPlayer = class extends React.Component {
       player.play();
     }
   }
+  */
 
 
   render() {
     const {video} = this;
     const {playerReady} = this.state;
     const {isMobile} = this.props;
-    console.log('isMobile:',isMobile);
     const innerContainerClassName = "center relative " + (isMobile ? "video-container-mobile" : "");
     const videoClassName = 'cld-video-player vjs-16-9 ' + playerReady ? '' : 'hidden';
     return (
