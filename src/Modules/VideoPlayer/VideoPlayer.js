@@ -157,8 +157,8 @@ const VideoPlayer = class extends React.Component {
     const {videoRef} = this;
     const {playerReady} = this.state;
     const {isMobile} = this.props;
-    const outerContainerClassName = "video-container-outer " + playerReady ? "" : "hidden";
-    const innerContainerClassName = "center relative " + (isMobile ? "video-container-mobile " : "");// + (playerReady ? "" : "hidden-video-container");
+    const outerContainerClassName = "video-container-outer";
+    const innerContainerClassName = "center relative " + (isMobile ? "video-container-mobile " : "") + (playerReady ? "" : "hidden-video-container");
     return (
       <Page>
         {!playerReady && (

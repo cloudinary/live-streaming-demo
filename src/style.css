@@ -258,7 +258,7 @@ input[type='radio']:checked {
 .sign-up-container {
   width: 100%;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   background-color: rgba(50, 60, 90, 0.6);
   right: 0;
   padding: 40px 40px 50px;
@@ -320,6 +320,10 @@ input.social-input::placeholder {
   padding-top:70vh !important;
   width:calc(70vh*1.77777777778) !important;
   margin-left: 15%;
+}
+
+.hidden-video-container > div{
+  visibility: hidden;
 }
 
 .video-recorder-container-outer {
