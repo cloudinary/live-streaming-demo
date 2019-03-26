@@ -34,8 +34,8 @@ const VideoRecorderPage = class extends React.Component {
         const {history, store} = this.props;
         const started = (store.liveStreamStatus === 'start');
         const {error} = store;
-        console.log('recorder status: ',store.liveStreamStatus);
-        const video = this.videoRef;
+        const videoRef = this.videoRef;
+        const outerContainerClassName = "video-container-outer " + (started ? "" : "hidden");
         return (
             <Page>
                 {!started && (
@@ -51,10 +51,10 @@ const VideoRecorderPage = class extends React.Component {
                 <Col xs={12} className="center text-center">
                     <LiveIndicator/>
                 </Col>
-                <div className="video-container-outer">
+                <div className={outerContainerClassName}>
                     <div className="center relative">
                         <video
-                            ref={video}
+                            ref={videoRef}
                             className="cld-video-recorder"
                             id="video"
                             autoPlay

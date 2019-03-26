@@ -1,5 +1,5 @@
 import React from 'react';
-import {Page, Loader, withWindowDimensions} from '../../Components';
+import {Page, Loader} from '../../Components';
 import Env from '../../Utils/Env';
 import queryString from 'query-string';
 import {transformationRaw} from '../../Utils/Transformations';
@@ -30,45 +30,46 @@ const VideoPlayer = class extends React.Component {
     this.end = this.end.bind(this);
     this.wait = this.wait.bind(this);
     this.loadedData = this.loadedData.bind(this);
+    this.loadedMetaData = this.loadedMetaData.bind(this);
   }
 
   pause() {
-    console.log('pause');
     this.paused = true;
     this.waiting = false;
   }
 
   play() {
-    console.log('play');
     this.paused = false;
     this.waiting = false;
   }
 
   end() {
-    console.log('end');
     this.ended = true;
     this.waiting = false;
   }
 
   wait() {
-    console.log('wait');
     this.waiting = true;
   }
 
-  loadedData(){
-    console.log('loadeddata');
+  loadedData() {
     if (this.currentTime) {
-      this.player.currentTime(this.currentTime)
+      this.player.currentTime(this.currentTime);
       this.player.play();
     }
     this.waiting = false;
   }
 
+  loadedMetaData(){
+      this.setState({playerReady: true});
+  }
+
   /**
    * Handles a situation where player looks like it's loading
-   * but actually not, so we force a reload by adding a new source.
+   * but actually not, so we force a reload and set currentTime.
+   * On 'loadeddata' event player.currentTime will be set to currentTime.
    */
-  reloadIfStalled(prevState) {
+  reloadIfStalled() {
     if (this.videoRef && this.videoRef.current) {
       const {waiting, paused, ended, videoRef} = this;
       const {currentTime, duration} = videoRef.current;
@@ -80,7 +81,7 @@ const VideoPlayer = class extends React.Component {
 
   addSource(currentTime) {
     this.waiting = false;
-    const {player, publicId, transformations, videoRef} = this;
+    const {player, publicId, transformations} = this;
     this.player = player
       .source(publicId, {
         sourceTypes: ['hls'],
@@ -90,16 +91,14 @@ const VideoPlayer = class extends React.Component {
       });
     this.player.videojs.load();
     if (currentTime) {
-      //videoRef.current.currentTime = currentTime;
       this.currentTime = currentTime;
-    }
-    else{
+    } else { //Started at duration=0 so start muted
       player.mute();
     }
   };
 
   componentDidMount() {
-    const {addSource, reloadIfStalled, play, pause, wait, loadedData, end} = this;
+    const {addSource, reloadIfStalled, play, pause, wait, loadedData, loadedMetaData, end} = this;
     const player = this.player = cld.videoPlayer(
       'video-player', //video.current,
       {
@@ -141,10 +140,7 @@ const VideoPlayer = class extends React.Component {
 
     player.on('loadeddata', loadedData);
 
-
-    player.on('loadedmetadata', () => {
-      this.setState({playerReady: true});
-    });
+    player.on('loadedmetadata', loadedMetaData);
   }
 
   componentWillUnmount() {
@@ -168,8 +164,8 @@ const VideoPlayer = class extends React.Component {
     const {video} = this;
     const {playerReady} = this.state;
     const {isMobile} = this.props;
-    const innerContainerClassName = "center relative " + (isMobile ? "video-container-mobile" : "");
-    const videoClassName = 'cld-video-player vjs-16-9 ' + playerReady ? '' : 'hidden';
+    const outerContainerClassName = "video-container-outer " + playerReady ? "" : "hidden";
+    const innerContainerClassName = "center relative " + (isMobile ? "video-container-mobile " : "");// + (playerReady ? "" : "hidden-video-container");
     return (
       <Page>
         {!playerReady && (
@@ -177,12 +173,12 @@ const VideoPlayer = class extends React.Component {
             <Loader text="Hang on a second. We’re loading the video stream you requested."/>
           </Page>
         )}
-        <div className="video-container-outer">
+        <div className={outerContainerClassName}>
           <div className={innerContainerClassName}>
             <video
               ref={video}
               id="video-player"
-              className={videoClassName}
+              className="cld-video-player vjs-16-9"
               controls={!!playerReady}
               autoPlay
               playsInline
