@@ -304,13 +304,14 @@ input.social-input::placeholder {
   margin: 0;
 }
 
-.video-container-outer {
-  padding: 20px;
+.video-container-mobile > div {
+  padding-top:70vh !important;
+  width:calc(70vh*1.77777777778) !important;
+  margin-left: 15%;
 }
 
 .video-recorder-container-outer {
-  padding: 20px;
-  padding-top: 0;
+  padding: 0 20px 20px;
 }
 
 .relative {
@@ -319,8 +320,7 @@ input.social-input::placeholder {
 
 .cld-video-player {
   position: absolute;
-  top: 20px;
-  padding-top: 56.25%;
+  padding-top: 56.25% !important;
 }
 
 .cld-video-recorder {
@@ -329,7 +329,6 @@ input.social-input::placeholder {
   width: 100%;
   padding-top: 0 !important;
 }
-
 
 .footer {
   height: 50px;
@@ -354,3 +353,4 @@ input.social-input::placeholder {
 .hidden{
   visibility: hidden;
 }
+

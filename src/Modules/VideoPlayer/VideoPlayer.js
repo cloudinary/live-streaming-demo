@@ -1,8 +1,9 @@
 import React from 'react';
-import {Page, Loader} from '../../Components';
+import {Page, Loader, withWindowDimensions} from '../../Components';
 import Env from '../../Utils/Env';
 import queryString from 'query-string';
 import {transformationRaw} from '../../Utils/Transformations';
+import withSizes from 'react-sizes'
 
 window.ga('send', 'pageview');
 
@@ -16,7 +17,7 @@ const VideoPlayer = class extends React.Component {
     super(props);
     this.transformations = queryString.parse(this.props.location.search);
     this.publicId = this.props.match.params.publicId;
-    this.state = {};
+    this.state = {videoPaddingTop: 200};
     this.player = null;
     this.waiting = false;
     this.ended = false;
@@ -57,11 +58,13 @@ const VideoPlayer = class extends React.Component {
    * Handles a situation where player looks like it's loading
    * but actually not, so we force a reload by adding a new source.
    */
-  reloadIfStalled() {
-    const {waiting, paused, ended, videoRef} = this;
-    const {currentTime, duration} = videoRef.current;
-    if (!paused && waiting && !(ended && currentTime === duration)) {
-      this.addSource(videoRef.current.currentTime);
+  reloadIfStalled(prevState) {
+    if (this.videoRef && this.videoRef.current) {
+      const {waiting, paused, ended, videoRef} = this;
+      const {currentTime, duration} = videoRef.current;
+      if (!paused && waiting && !(ended && currentTime === duration)) {
+        this.addSource(videoRef.current.currentTime);
+      }
     }
   }
 
@@ -146,10 +149,12 @@ const VideoPlayer = class extends React.Component {
 
 
   render() {
-    const video = this.videoRef;
-    const playerReady = this.state.playerReady;
-    const className =
-      'cld-video-player vjs-16-9 ' + playerReady ? '' : 'hidden';
+    const {video} = this;
+    const {playerReady} = this.state;
+    const {isMobile} = this.props;
+    console.log('isMobile:',isMobile);
+    const innerContainerClassName = "center relative " + (isMobile ? "video-container-mobile" : "");
+    const videoClassName = 'cld-video-player vjs-16-9 ' + playerReady ? '' : 'hidden';
     return (
       <Page>
         {!playerReady && (
@@ -158,12 +163,12 @@ const VideoPlayer = class extends React.Component {
           </Page>
         )}
         <div className="video-container-outer">
-          <div className="center relative">
+          <div className={innerContainerClassName}>
             <video
               ref={video}
               id="video-player"
-              className={className}
-              controls={playerReady}
+              className={videoClassName}
+              controls={!!playerReady}
               autoPlay
               playsInline
               muted
@@ -175,4 +180,12 @@ const VideoPlayer = class extends React.Component {
   }
 };
 
-export default VideoPlayer;
+const mapSizesToProps = ({ height, width }) => {
+  console.log(height, width);
+  return {
+    isMobile: height < 500
+  }
+};
+
+export default withSizes(mapSizesToProps)(VideoPlayer);
+

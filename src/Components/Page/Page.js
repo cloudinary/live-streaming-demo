@@ -4,12 +4,12 @@ import { Col, Row } from 'reactstrap';
 
 import './Page.css';
 
-export default ({ className = '', children, absolute }) => {
+export default React.forwardRef(({ className='', children, absolute }, ref) => {
   if (absolute) {
     return (
-      <Row
-        noGutters
-        className="h-100 w-100"
+      <div
+        ref={ref}
+        className="row no-gutters h-100 w-100"
         style={{
           position: 'absolute',
           boxSizing: 'content-box'
@@ -19,13 +19,13 @@ export default ({ className = '', children, absolute }) => {
           <div className="bg-blur" />
           <div className="bg-opacity">{children}</div>
         </Col>
-      </Row>
+      </div>
     );
   }
   return (
-    <Row
-      noGutters
-      className={'height-full ' + className}
+    <div
+      ref={ref}
+      className={'row no-gutters height-full ' + className}
     >
       <Col
         md={10}
@@ -36,6 +36,6 @@ export default ({ className = '', children, absolute }) => {
         <div className="bg-blur" />
         <div className="bg-opacity">{children}</div>
       </Col>
-    </Row>
+    </div>
   );
-};
+});
