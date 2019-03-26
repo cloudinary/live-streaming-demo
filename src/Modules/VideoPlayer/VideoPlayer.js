@@ -58,17 +58,11 @@ const VideoPlayer = class extends React.Component {
   }
 
   loadedData() {
-    this.currentTime = Math.max(this.currentTime, this.player.currentTime || 0);
-
-    if (this.currentTime) {
-      this.player.currentTime(this.currentTime);
-      this.player.play();
-    }
     this.waiting = false;
   }
 
   loadedMetaData(){
-      this.setState({playerReady: true});
+    this.setState({playerReady: true});
   }
 
   /**
@@ -97,9 +91,8 @@ const VideoPlayer = class extends React.Component {
         raw_transformation: transformationRaw(transformations)
       });
     this.player.videojs.load();
-    if (currentTime) {
-      this.currentTime = currentTime;
-    } else { //Started at duration=0 so start muted
+    if (!currentTime) {
+      //Started at duration=0 so start muted
       player.mute();
     }
   };
@@ -151,7 +144,6 @@ const VideoPlayer = class extends React.Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutId);
     clearInterval(this.state.intervalId);
   }
 
@@ -159,7 +151,7 @@ const VideoPlayer = class extends React.Component {
     const {videoRef} = this;
     const {playerReady} = this.state;
     const {isMobile} = this.props;
-    const outerContainerClassName = "video-container-outer";
+    const outerContainerClassName = "video-container-outer " + playerReady ? "" : "hidden";
     const innerContainerClassName = "center relative " + (isMobile ? "video-container-mobile " : "") + (playerReady ? "" : "hidden-video-container");
     return (
       <Page>
