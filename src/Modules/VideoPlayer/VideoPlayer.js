@@ -58,6 +58,8 @@ const VideoPlayer = class extends React.Component {
   }
 
   loadedData() {
+    this.currentTime = Math.max(this.currentTime, this.player.currentTime || 0);
+
     if (this.currentTime) {
       this.player.currentTime(this.currentTime);
       this.player.play();
