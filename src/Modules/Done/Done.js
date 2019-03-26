@@ -9,6 +9,8 @@ import {
   Col,
   Button
 } from 'reactstrap';
+import withSizes from "react-sizes";
+import mapSizesToProps from '../../Utils/mapSizesToProps';
 
 const Done = class extends React.Component {
   constructor(props) {
@@ -53,6 +55,7 @@ const Done = class extends React.Component {
 
   render() {
     const {title, url} = this.props.store;
+    const {isMobile} = this.props;
     return (
       <Page className="text-white">
         <Col xs={12} className="text-center h-100">
@@ -69,7 +72,7 @@ const Done = class extends React.Component {
           <IconButton icon="PlayCircleOutline" text="Watch Again" onClick={this.redirectToPlayer}/>
           <IconButton icon="Videocam" text="New Stream" onClick={this.redirectToMain}/>
           
-          <div className="sign-up-container">
+          <div className={isMobile ? "col-12 sign-up-container-mobile" : "sign-up-container"}>
           <Col xs={12}>
           <div className="cloudinary-logo-with-text"></div>
           </Col>
@@ -85,4 +88,4 @@ const Done = class extends React.Component {
   }
 };
 
-export default inject('store')(observer(Done));
+export default inject('store')(observer(withSizes(mapSizesToProps)(Done)));

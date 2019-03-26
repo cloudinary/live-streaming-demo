@@ -4,6 +4,7 @@ import Env from '../../Utils/Env';
 import queryString from 'query-string';
 import {transformationRaw} from '../../Utils/Transformations';
 import withSizes from 'react-sizes'
+import mapSizesToProps from '../../Utils/mapSizesToProps';
 
 window.ga('send', 'pageview');
 
@@ -177,13 +178,6 @@ const VideoPlayer = class extends React.Component {
         </div>
       </Page>
     );
-  }
-};
-
-const mapSizesToProps = ({ height, width }) => {
-  console.log(height, width);
-  return {
-    isMobile: height < 500
   }
 };
 

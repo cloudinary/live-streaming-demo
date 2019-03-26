@@ -21,7 +21,7 @@ const Home = class extends React.Component {
         <Title />
         <Effects />
         <Social />
-        <NavButton cls="arrow" to="/invite" history={history}>
+        <NavButton cls="button-round" to="/invite" history={history}>
           →
         </NavButton>
       </Page>

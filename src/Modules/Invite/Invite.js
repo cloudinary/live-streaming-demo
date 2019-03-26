@@ -42,4 +42,4 @@ const Invite = class extends React.Component {
   }
 };
 
-export default inject('store')(observer(Invite));
+export default inject('store')(observer((Invite)));

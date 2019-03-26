@@ -134,6 +134,10 @@ hr {
   margin-top: 40px;
 }
 
+.mt-150{
+  margin-top: 150px;
+}
+
 .pt-10 {
   padding-top: 10px;
 }
@@ -261,6 +265,14 @@ input[type='radio']:checked {
   font-size: 0.8rem;
 }
 
+.sign-up-container-mobile {
+  margin-top:20px;
+  background-color: rgba(50, 60, 90, 0.6);
+  right: 0;
+  padding: 40px 40px 50px;
+  font-size: 0.8rem;
+}
+
 .modal-share {
   background-color: rgb(50, 60, 90) !important;
   margin-top: 185px;
@@ -353,4 +365,3 @@ input.social-input::placeholder {
 .hidden{
   visibility: hidden;
 }
-
