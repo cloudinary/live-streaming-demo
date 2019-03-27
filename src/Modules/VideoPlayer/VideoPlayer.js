@@ -40,7 +40,7 @@ const VideoPlayer = class extends React.Component {
 
   play() {
     //we don't need to reload the source again
-    if (this.ended){
+    if (this.ended) {
       clearInterval(this.state.intervalId);
     }
 
@@ -61,7 +61,7 @@ const VideoPlayer = class extends React.Component {
     this.waiting = false;
   }
 
-  loadedMetaData(){
+  loadedMetaData() {
     this.setState({playerReady: true});
   }
 
@@ -123,7 +123,8 @@ const VideoPlayer = class extends React.Component {
           if (!this.state.playerReady) {
             addSource();
           } else {
-            reloadIfStalled();
+            //reloadIfStalled();
+            clearInterval(this.state.intervalId);
           }
         }, 1000);
         this.setState({intervalId: intervalId});
