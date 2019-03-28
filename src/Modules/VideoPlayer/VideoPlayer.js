@@ -1,5 +1,5 @@
 import React from 'react';
-import {Page, Loader, ReactVideoPlayer} from '../../Components';
+import {Page, ReactVideoPlayer} from '../../Components';
 import Env from '../../Utils/Env';
 import queryString from 'query-string';
 import {transformationRaw} from '../../Utils/Transformations';
@@ -22,9 +22,7 @@ const VideoPlayer = class extends React.Component {
     return {
       cloudName: Env.CLOUD_NAME,
       id: 'video-player',
-      controls: true,
       muted: true,
-      //width={960},
       config: {
         fluid: true,
         videojs: {
@@ -45,7 +43,7 @@ const VideoPlayer = class extends React.Component {
       source: {
         publicId: this.publicId,
         info: {
-          title: "Cloudinary Live Stream Demo",
+          title: "Cloudinary Live Streaming Demo",
           subtitle: "Using Cloudinary Video Player"
         },
         sourceTypes: ['hls'],
