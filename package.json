@@ -47,7 +47,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "https://staging-demo.cloudinary.com/live",
+  "homepage": "https://demo.cloudinary.com/live",
   "devDependencies": {
     "gh-pages": "^2.0.1"
   }
