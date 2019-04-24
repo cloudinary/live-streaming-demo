@@ -38,7 +38,6 @@ const Done = class extends React.Component {
   redirectToPlayer(){
     const { history } = this.props;
     const {url} = this.props.store;
-    console.log(url);
     const shareUrlArray = url.split('/');
     history.push('/'+shareUrlArray.slice(shareUrlArray.indexOf('videoplayer')).join('/'));
   }
