@@ -37,8 +37,9 @@ const Done = class extends React.Component {
 
   redirectToPlayer(){
     const { history } = this.props;
-    const {publicId} = this.props.store;
-    history.push('/videoplayer/'+publicId);
+    const {url} = this.props.store;
+    const shareUrlArray = url.split('/');
+    history.push('/'+shareUrlArray.slice(shareUrlArray.indexOf('videoplayer')).join('/'));
   }
 
   redirectToMain(){
@@ -71,16 +72,16 @@ const Done = class extends React.Component {
 
           <IconButton icon="PlayCircleOutline" text="Watch Again" onClick={this.redirectToPlayer}/>
           <IconButton icon="Videocam" text="New Stream" onClick={this.redirectToMain}/>
-          
+
           <div className={isMobile ? "col-12 sign-up-container-mobile" : "sign-up-container"}>
           <Col xs={12}>
           <div className="cloudinary-logo-with-text"></div>
           </Col>
           <Col xs={12}>
           <div className="mb-10">Read more @ Cloudinary</div>
-          
+
           <div><Button id="stop-button" className="button-orange bold" onClick={this.signUp}>SIGN UP FOR FREE</Button></div>
-          </Col>   
+          </Col>
           </div>
         </Col>
       </Page>
