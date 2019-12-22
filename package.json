@@ -9,12 +9,12 @@
     "@material-ui/icons": "^3.0.2",
     "bootstrap": "^4.3.1",
     "cloudinary-core": "^2.6.2",
-    "cloudinary-live-stream": "^1.0.0-beta.0",
+    "cloudinary-live-stream": "^1.0.0-beta.1",
     "cloudinary-react": "^1.1.0",
-    "cloudinary-video-player": "^1.1.3",
+    "cloudinary-video-player": "^1.3.3",
     "font-awesome": "^4.7.0",
     "formik": "^1.5.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
     "mobx-state-tree": "^3.10.2",
@@ -23,7 +23,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.3",
     "react-pose": "^4.0.7",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "4.3.1",
     "react-scripts": "2.1.5",
     "react-share": "^2.4.0",
     "react-sizes": "^1.0.4",
@@ -47,7 +47,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "https://staging-demo.cloudinary.com/live",
+  "homepage": "https://demo.cloudinary.com/live",
   "devDependencies": {
     "gh-pages": "^2.0.1"
   }
