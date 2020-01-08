@@ -1,5 +1,5 @@
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
-import initLS from 'cloudinary-live-stream';
+import initLS from '@cloudinary/js-streaming';
 import { getShareUrl } from '../Utils/Routing';
 import Env from '../Utils/Env';
 
