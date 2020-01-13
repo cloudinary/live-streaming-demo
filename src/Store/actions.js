@@ -1,5 +1,5 @@
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
-import initLS from '@cloudinary/js-streaming';
+import {initLiveStream} from '@cloudinary/js-streaming'
 import { getShareUrl } from '../Utils/Routing';
 import Env from '../Utils/Env';
 
@@ -118,10 +118,10 @@ export default self => {
     self.videoRef = vr;
   }
 
-  function initLiveStream(pathname) {
+  function initLS(pathname) {
     self.setLoading(true);
 
-    initLS(getLiveStreamInitOptions())
+    initLiveStream(getLiveStreamInitOptions())
       .then(newLiveStream => {
         self.setLiveStream(null, newLiveStream, pathname);
       })
@@ -153,7 +153,7 @@ export default self => {
     resetStore,
     setStartedAtMainPage,
     setLiveStream,
-    initLiveStream,
+    initLS,
     setVideoRef,
     startLiveStream,
     stopLiveStream,

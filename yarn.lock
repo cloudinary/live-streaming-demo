@@ -769,6 +769,15 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@cloudinary/js-streaming@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@cloudinary/js-streaming/-/js-streaming-1.0.1.tgz#fec914f7508f6d3ecc9a6bc261f488caaaa0867b"
+  integrity sha512-AvvEdLS1iJERBrk3WkYJynAA0eM50j0ziXYp7T85ehykXx4ChICZ40yK7r0NqcdY8LazjGeYwIE5vKF9SvNLMQ==
+  dependencies:
+    es6-promise "^4.2.8"
+    janus-gateway "git://github.com/meetecho/janus-gateway.git#v0.8.0"
+    whatwg-fetch "^3.0.0"
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -2541,15 +2550,6 @@ cloudinary-core@^2.3.0, cloudinary-core@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/cloudinary-core/-/cloudinary-core-2.6.2.tgz#e034877e65bab554e23e5ef215f091f27630e507"
   integrity sha512-oS+qniwbRVrDO6va4BNStkyunVbr1YQJarFlas19208tLUZE8DOxFO0fSE6Mx9zNfcwU6Cpm8x9FtVdtiwB/MA==
-
-cloudinary-live-stream@^1.0.0-beta.1:
-  version "1.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/cloudinary-live-stream/-/cloudinary-live-stream-1.0.0-beta.1.tgz#9b3b26d695ac44aa3ebb1d35b6e40c9ef063ac3c"
-  integrity sha512-pIne+EybUKERI8DNVqK6GFRDcomFB5XmXhAXqOqHeHrTfTlAnxqBXQYgJa6E+EET5RUy5/5Gm3zD2cn5dqVG0A==
-  dependencies:
-    es6-promise "^4.2.8"
-    janus-gateway "git://github.com/meetecho/janus-gateway.git#v0.8.0"
-    whatwg-fetch "^3.0.0"
 
 cloudinary-react@^1.1.0:
   version "1.1.0"

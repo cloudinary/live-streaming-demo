@@ -6,7 +6,7 @@ import {Title, Url, Stream} from './Partials';
 
 const Invite = class extends React.Component {
   componentDidMount() {
-    this.props.store.initLiveStream(this.props.location.pathname);
+    this.props.store.initLS(this.props.location.pathname);
   }
 
   render() {
