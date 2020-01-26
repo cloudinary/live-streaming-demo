@@ -21,7 +21,7 @@ const Done = class extends React.Component {
 
     this.state={
       showShareModal:false
-    }
+    };
 
     this.toggleShareModal = this.toggleShareModal.bind(this);
     this.redirectToPlayer = this.redirectToPlayer.bind(this);

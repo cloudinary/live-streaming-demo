@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Col, Row } from 'reactstrap';
+import { Col } from 'reactstrap';
 
 import './Page.css';
 

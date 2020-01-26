@@ -16,6 +16,7 @@ import Loader from './Loader/Loader';
 import IconButton from './IconButton/IconButton';
 import Share from './Share/Share';
 import ReactVideoPlayer from './ReactVideoPlayer/ReactVideoPlayer';
+import VideoPreview from './VideoPreview/VideoPreview';
 
 /**
  * Provides a convenient way to import components.
@@ -38,5 +39,6 @@ export {
     Loader,
     IconButton,
     Share,
-    ReactVideoPlayer
+    ReactVideoPlayer,
+    VideoPreview
 };
