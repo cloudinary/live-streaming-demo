@@ -2,19 +2,20 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Icon } from '../Components';
 
-const CheckBox = class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.update = this.update.bind(this);
-  }
-
-  update(e) {
+/**
+ *
+ * @type {CheckBox}
+ */
+class CheckBox extends React.Component {
+  update = () => {
     const { store, action, name } = this.props;
     store[action](name);
-  }
-  
+  };
+
   render() {
+    const {update} = this;
     const { name, label, logo, checked } = this.props;
+
     return (
       <div className="checkbox-flex">
         <label htmlFor={name} className="checkbox-label">
@@ -22,7 +23,7 @@ const CheckBox = class extends React.Component {
             id={name}
             type="checkbox"
             name={name}
-            onChange={this.update}
+            onChange={update}
             checked={checked}
           />
           <Icon name={logo} />
@@ -31,6 +32,6 @@ const CheckBox = class extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default inject('store')(observer(CheckBox));

@@ -1,53 +1,64 @@
-.bg-opacity{
-    width:100%;
+.bg-opacity {
+    width: 100%;
     height: 100%;
-    background-color: rgba(14,47,90,.48);
+    background-color: rgba(14, 47, 90, .48);
     z-index: 100;
     position: relative;
     /*padding-top: 15px;*/
 }
 
-.bg-blur{
-  /* Absolutely position it, but stretch it to all four corners, then put it just behind .bg-opacity's z-index */
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  z-index: 99;
+.bg-blur {
+    /* Absolutely position it, but stretch it to all four corners, then put it just behind .bg-opacity's z-index */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
 
-  /* Pull the background 70px higher to the same place as #bg's */
-  background-position: center;
-  -webkit-filter: blur(6px);
-  background: url("../../assets/images/app-background-small.jpg") no-repeat 50% fixed;
-  filter: blur(6px);
-  background-size: cover;
-  margin:6px;
+    /* Pull the background 70px higher to the same place as #bg's */
+    -webkit-filter: blur(6px);
+    background: url("../../assets/images/app-background-small.jpg") no-repeat 50% fixed;
+    filter: blur(6px);
+    background-size: cover;
+    margin: 6px;
 }
 
-.whitecolor{
+.whitecolor {
     color: white;
     z-index: 100;
 }
 
-.full-height{
+.full-height {
     height: 100%;
 }
 
-.page-container{
+.page-container {
     position: relative;
 }
 
-no-padding{
+.no-padding {
     padding: 0;
 }
 
-.height-full{
-    height:100%;
+.no-margin {
+    margin: 0;
+}
+
+.height-full {
+    height: 100%;
     min-height: 100%;
 }
 
-.full-height-children>div{
-    height:100% !important;
+.full-height-children > div {
+    height: 100% !important;
     min-height: 100% !important;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.context-box {
+    box-sizing: content-box;
 }

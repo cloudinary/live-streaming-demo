@@ -1,29 +1,37 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import { Col, Row } from 'reactstrap';
-import { getHomeUrl } from '../../Utils/Routing';
+import {Col, Row} from 'reactstrap';
+import {getHomeUrl} from '../../Utils/Routing';
 import './Header.css';
 
-const Header = (props) => {
-    const homeUrl = getHomeUrl(props.location.pathname);
-    return (
-        <div className="header header-bg">
-            <Row noGutters className="header">
-                <Col md={10} lg={8} xl={6} className="offset-md-1 offset-lg-2 offset-xl-3 header-bg">
-                <a style={{display:"block"}} href={homeUrl}>
-                    <div className="header-grid align-items-center justify-content-center">
-                        <div className="header-logo" />
-                        <div className="header-text header-text-grid">
-                            <div className="header-title">Cloudinary Live Streaming</div>
-                            <div className="header-sub-title">Beta</div>
-                        </div>
-                    </div>
-                    </a>
-                </Col>
-            </Row>
-        </div>
-    );
-};
+const HeaderContainer = ({children, url}) => (
+  <div className="header header-bg">
+    <Row noGutters className="header">
+      <Col md={10} lg={8} xl={6} className="offset-md-1 offset-lg-2 offset-xl-3 header-bg">
+        <a style={{display: "block"}} href={url}>
+          <div className="header-grid align-items-center justify-content-center">
+            {children}
+          </div>
+        </a>
+      </Col>
+    </Row>
+  </div>
+);
+
+const HeaderLogo = () => <div className="header-logo"/>;
+
+const HeaderText = ({title, subTitle}) => (
+  <div className="header-text header-text-grid">
+    <div className="header-title">{title}</div>
+    <div className="header-sub-title">{subTitle}</div>
+  </div>
+);
+
+const Header = ({location}) => (
+  <HeaderContainer url={getHomeUrl(location.pathname)}>
+    <HeaderLogo/>
+    <HeaderText title="Cloudinary Live Streaming" subTitle="Beta"/>
+  </HeaderContainer>
+);
 
 export default withRouter(Header);
-

@@ -5,7 +5,11 @@ import { Title, Effects, Social } from './Partials';
 import './Home.css';
 window.ga('send', 'pageview');
 
-const Home = class extends React.Component {
+/**
+ * Home page
+ * Displays options for starting a new video stream.
+ */
+class Home extends React.Component {
   componentDidMount() {
     this.props.store.setStartedAtMainPage();
     if (this.props.store.needRestart) {
@@ -27,6 +31,6 @@ const Home = class extends React.Component {
       </Page>
     );
   }
-};
+}
 
 export default inject('store')(observer(Home));

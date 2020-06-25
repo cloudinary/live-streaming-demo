@@ -1,12 +1,17 @@
 import React from 'react';
-import { Header } from '../Components';
+import {Header, Footer} from '../Components';
 
-export default props => {
+/**
+ * Wraps children with Header and Footer
+ * @param children - Content to wrap
+ * @return {*}
+ */
+export default ({children}) => {
   return (
     <React.Fragment>
-      <Header />
-      {props.children}
-      <div className="footer" />
+      <Header/>
+      {children}
+      <Footer/>
     </React.Fragment>
   );
 };

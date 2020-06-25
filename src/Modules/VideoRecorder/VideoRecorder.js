@@ -5,7 +5,12 @@ import {inject, observer} from 'mobx-react';
 
 import './VideoRecorder.css';
 
-const VideoRecorderPage = class extends React.Component {
+/**
+ * This page is shown to stream host.
+ * Wraps Cloudinary's video player.
+ * Starts the streams and has a Stop button.
+ */
+class VideoRecorderPage extends React.Component {
     constructor(props) {
         super(props);
         if (!props.store.url) {
@@ -13,15 +18,13 @@ const VideoRecorderPage = class extends React.Component {
         }
 
         this.videoRef = React.createRef();
-        this.startLiveStream = this.startLiveStream.bind(this);
-        this.stopLiveStream = this.stopLiveStream.bind(this);
     }
 
-    startLiveStream() {
+    startLiveStream = () => {
         this.props.store.startLiveStream(this.videoRef.current);
     }
 
-    stopLiveStream() {
+    stopLiveStream = () => {
         this.props.store.stopLiveStream();
     }
 
@@ -79,6 +82,6 @@ const VideoRecorderPage = class extends React.Component {
             </Page>
         );
     }
-};
+}
 
 export default inject('store')(observer(VideoRecorderPage));

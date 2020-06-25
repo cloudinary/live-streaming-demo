@@ -1,13 +1,11 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-const TextInput = class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.update = this.update.bind(this);
-  }
-
-  update(e) {
+/**
+ * Text Input that updates store on change
+ */
+class TextInput extends React.Component {
+  update = (e) => {
     const { store, name, model } = this.props;
     store.setInputValue(name, `${e.target.value}`, model);
   }
@@ -28,11 +26,11 @@ const TextInput = class extends React.Component {
           name={name}
           className={className}
           placeholder={placeholder}
-          onChange={defaultValue ? null :this.update}         
+          onChange={defaultValue ? null :this.update}
           {...valueProp}
         />
     );
   }
-};
+}
 
 export default inject('store')(observer(TextInput));

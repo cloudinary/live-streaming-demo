@@ -5,7 +5,11 @@ import {Page, Share, Loader, VideoPreview} from '../../Components';
 import {Title, Url, Stream} from './Partials';
 import {Streamer} from '@cloudinary/js-streaming';
 
-const Invite = class extends React.Component {
+/**
+ * Invite page
+ * Shows pending stream locally with option to share it before starting the stream.
+ */
+class Invite extends React.Component {
   constructor(props){
     super(props);
     this.state = {videoRef: React.createRef(), isMobile: window.innerWidth < 400};
@@ -67,6 +71,6 @@ const Invite = class extends React.Component {
       </Page>
     );
   }
-};
+}
 
 export default inject('store')(observer((Invite)));

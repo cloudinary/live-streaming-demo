@@ -8,7 +8,12 @@ import mapSizesToProps from '../../Utils/mapSizesToProps';
 
 window.ga('send', 'pageview');
 
-const VideoPlayer = class extends React.Component {
+/**
+ * This page is shown to viewers of the video stream.
+ * Wraps Cloudinary's video player
+ * Configures the video with options that were selected at the home page.
+ */
+class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.transformations = queryString.parse(this.props.location.search);
@@ -62,7 +67,7 @@ const VideoPlayer = class extends React.Component {
       </Page>
     );
   }
-};
+}
 
 export default withSizes(mapSizesToProps)(VideoPlayer);
 

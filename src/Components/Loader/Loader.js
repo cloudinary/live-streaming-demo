@@ -1,22 +1,28 @@
 import React from 'react';
-import { Spinner, Container, Row, Col } from 'reactstrap';
+import {Spinner, Container, Row, Col} from 'reactstrap';
 
-
+/**
+ * Shows a spinner with label
+ * @param text
+ * @param absolute - container will have an absolute position if true
+ * @return {*}
+ * @constructor
+ */
 const Loader = ({text, absolute}) => {
   return (
-      <Container className={"h-100 text-white"} style={absolute ? {position:"absolute"}: {}}>
-        <Row className="loader-container justify-content-center align-items-center text-center" />
-        <Row className="justify-content-center align-items-center">
-          <Col mx={12} className="text-center">
+    <Container className={"h-100 text-white"} style={absolute ? {position: "absolute"} : {}}>
+      <Row className="loader-container justify-content-center align-items-center text-center"/>
+      <Row className="justify-content-center align-items-center">
+        <Col mx={12} className="text-center">
           <Spinner className="spinner-size" color="light"/>
-          </Col>
-        </Row>
-        <Row className="justify-content-center align-items-center">
-          <Col mx={12} className="text-center">
-            <h6>{text}</h6>
-          </Col>
-        </Row>
-      </Container>
+        </Col>
+      </Row>
+      <Row className="justify-content-center align-items-center">
+        <Col mx={12} className="text-center">
+          <h6>{text}</h6>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

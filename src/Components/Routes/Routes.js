@@ -8,12 +8,18 @@ import {
     Done
   } from '../../Modules';
 
+/**
+ * Route switcher
+ * @param location - route is chosen based on the location
+ * @return {*} the component to render
+ * @constructor
+ */
 const Routes = ({location}) => {
   return (
     <Switch location={location}>
         <Route
           exact
-          path="/"        
+          path="/"
           key="home"
           component={Home}
         />

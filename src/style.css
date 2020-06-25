@@ -245,7 +245,7 @@ input[type='radio']:checked {
   cursor: pointer;
 }
 
-.call-to-action-top {
+.call-to-action-border-top {
   border-top: #8c8c8c 1px solid;
 }
 
@@ -362,12 +362,6 @@ input.social-input::placeholder {
   left: 0;
   width: 100%;
   padding-top: 0 !important;
-}
-
-.footer {
-  height: 50px;
-  width: 100%;
-  background-color: rgb(14, 47, 90);
 }
 
 .checkbox-flex {

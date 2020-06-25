@@ -4,7 +4,12 @@ import { Button } from 'reactstrap';
 import Env from '../../Utils/Env';
 import { UploadedImage } from '../Components';
 
-const UploadWidget = class extends React.Component {
+/**
+ * Wrapper of Cloudinary's upload widget
+ * Allows to upload an image to be used as video logo overlay
+ * Shows an upload button, or the image if it was already uploaded.
+ */
+class UploadWidget extends React.Component {
   constructor(props) {
     super(props);
     this.uploadWidget = null;
@@ -27,7 +32,7 @@ const UploadWidget = class extends React.Component {
         }
       );
   }
-  
+
 
   render() {
     const uploadedImage = this.props.store.uploadedImage;
@@ -47,6 +52,6 @@ const UploadWidget = class extends React.Component {
       </Button>
     );
   }
-};
+}
 
 export default inject('store')(observer(UploadWidget));

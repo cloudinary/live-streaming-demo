@@ -4,6 +4,9 @@ import Home from './Home/Home';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
 import VideoRecorder from './VideoRecorder/VideoRecorder';
 
+/**
+ * Pages of this app
+ */
 export {
     Done,
     Invite,

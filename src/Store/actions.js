@@ -10,17 +10,17 @@ export default self => {
   let initialSnapshot;
 
   const getLiveStreamInitOptions = () => {
-    return Object.assign({}, self.targets, {
+    return {...self.targets, ...{
       cloudName: CLOUD_NAME,
       uploadPreset: self.transformations.find(t => t.name === 'intro')
         ? UPLOAD_PRESET_OPENER
         : UPLOAD_PRESET,
       debug: 'all',
       events: {
-        start: function(args) {
+        start: function() {
           self.setLiveStreamStatus('start');
         },
-        stop: function(args) {
+        stop: function() {
           self.setLiveStreamStatus('stop');
         },
         error: function(error) {
@@ -31,7 +31,7 @@ export default self => {
           liveStream.attach(self.videoRef, stream);
         }
       }
-    });
+    }};
   };
 
   function setLiveStreamStatus(status){
@@ -60,10 +60,6 @@ export default self => {
 
   function toggleEffect(name) {
     self.effects.find(e => e.name === name).toggle();
-  }
-
-  function setEffectValue(name, value) {
-    self.effects.find(e => e.name === name).setValue(value);
   }
 
   function setUploadedImage(image) {
@@ -163,7 +159,6 @@ export default self => {
     setLoading,
     setInputValue,
     toggleEffect,
-    setEffectValue,
     toggleSocial,
     setUploadedImage,
     delUploadedImage

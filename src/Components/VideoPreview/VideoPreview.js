@@ -1,5 +1,13 @@
 import React from 'react';
 
+/**
+ * Shows local stream
+ * Used by the <Invite> Page
+ * @param innerRef - will be passed to underlying video element.
+ * @param isMobile - is small screen
+ * @return {*}
+ * @constructor
+ */
 const VideoPreview = ({ innerRef, isMobile}) => {
   const videoStyle = {
     marginTop: isMobile ? '5px' : '15px',
