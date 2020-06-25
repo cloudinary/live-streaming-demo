@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { inject, observer } from 'mobx-react';
 import { Icon } from '../Components';
 
 /**
- *
- * @type {CheckBox}
+ * Checkbox that updates the store on change
  */
-class CheckBox extends React.Component {
+class CheckBox extends Component {
   update = () => {
     const { store, action, name } = this.props;
     store[action](name);
