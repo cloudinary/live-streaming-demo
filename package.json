@@ -1,33 +1,33 @@
 {
   "name": "react-video-live-demo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
+    "@cloudinary/js-streaming": "^1.2.0",
     "@emotion/core": "^10.0.7",
     "@emotion/styled": "^10.0.7",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
-    "bootstrap": "^4.3.1",
-    "cloudinary-core": "^2.6.2",
-    "@cloudinary/js-streaming": "^1.1.0",
-    "cloudinary-react": "^1.1.0",
+    "bootstrap": "^4.5.0",
+    "cloudinary-core": "^2.9.0",
+    "cloudinary-react": "^1.5.1",
     "cloudinary-video-player": "^1.3.3",
     "font-awesome": "^4.7.0",
     "formik": "^1.5.1",
     "lodash": "^4.17.15",
     "mobx": "^5.9.0",
-    "mobx-react": "^5.4.3",
-    "mobx-state-tree": "^3.10.2",
-    "query-string": "^6.3.0",
-    "react": "^16.8.3",
-    "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.8.3",
-    "react-pose": "^4.0.7",
-    "react-router-dom": "4.3.1",
-    "react-scripts": "2.1.5",
+    "mobx-react": "^5.4.4",
+    "mobx-state-tree": "^3.16.0",
+    "query-string": "^6.13.1",
+    "react": "^16.13.1",
+    "react-copy-to-clipboard": "^5.0.2",
+    "react-dom": "^16.13.1",
+    "react-pose": "^4.0.10",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "2.1.8",
     "react-share": "^2.4.0",
     "react-sizes": "^1.0.4",
-    "reactstrap": "^7.1.0",
+    "reactstrap": "^8.0.1",
     "webrtc-adapter": "^3.4.3"
   },
   "scripts": {
@@ -49,6 +49,6 @@
   ],
   "homepage": "https://demo.cloudinary.com/live",
   "devDependencies": {
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.2.0"
   }
 }
