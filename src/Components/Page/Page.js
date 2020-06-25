@@ -3,7 +3,7 @@ import {Col} from 'reactstrap';
 import './Page.css';
 
 /**
- * Wrapper for each page of this app, renders
+ * Wrapper for each page of this app, renders background + page content
  * @param {boolean} absolute - should position of wrapper div be absolute
  * @param {string} className - will be passed to underlying div element
  * @param {*} children - will be passed as content of underlying div element
